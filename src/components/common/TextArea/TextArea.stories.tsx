@@ -6,24 +6,12 @@ const meta: Meta<typeof TextArea> = {
   component: TextArea,
   tags: ['autodocs'],
   argTypes: {
-    variants: {
-      control: {
-        type: 'select',
-        options: ['primary', 'secondary'],
-      },
-    },
-    size: {
-      control: {
-        type: 'select',
-        options: ['lg', 'md', 'xs', 'sm'],
-      },
-    },
     bordered: {
       control: {
         type: 'boolean',
       },
     },
-    ghost: {
+    ghosted: {
       control: {
         type: 'boolean',
       }
@@ -34,47 +22,26 @@ const meta: Meta<typeof TextArea> = {
 export default meta;
 type Story = StoryObj<typeof TextArea>;
 
-export const Defualt: Story = {
-  args: {
-    variants: 'primary',
-    size: 'md',
-  },
-};
-
-export const Variants: Story = {
-  args: {
-    size: 'md',
-  },
-  render: (args) => (
-    <div className='flex gap-8'>
-      <TextArea {...args} variants="primary" />
-      <TextArea {...args} variants="secondary" />
-    </div>
-  ),
-}
-
 export const Bordered: Story = {
   args: {
-    size: 'md',
     bordered: true,
   },
   render: (args) => (
     <div className='flex gap-8'>
-      <TextArea {...args} variants="primary" />
-      <TextArea {...args} variants="secondary" />
+      <TextArea {...args}/>
+      <TextArea {...args}/>
     </div>
   ),
 }
 
-export const Ghost: Story = {
+export const Ghosted: Story = {
     args: {
-      size: 'md',
-      ghost: true,
+      ghosted: true,
     },
     render: (args) => (
-      <div className='flex gap-8'>
-        <TextArea {...args} variants="primary" />
-        <TextArea {...args} variants="secondary" />
+      <div className='flex gap-8 bg-primary'>
+        <TextArea className="textarea-primary" {...args}/>
+        <TextArea className="textarea-secondry" {...args}/>
       </div>
     ),
   }
