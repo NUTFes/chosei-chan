@@ -9,12 +9,11 @@ const Button: React.FC<ButtonProps> = ({
   outlined,
   ...props
 }) => {
-  const variantsClass = variants ? `btn-${variants}` : 'btn-primary';
-  const sizeClass = size === 'md' ? '' : `btn-${size}`;
-  const outlinedClass = outlined ? 'btn-outline' : '';
-
   return (
-    <button className={classNames('btn', variantsClass, sizeClass, outlinedClass)} {...props}>
+    <button
+      className={classNames('btn', `btn-${variants}`, `btn-${size}`, outlined && 'btn-outline')}
+      {...props}
+    >
       {loading && <span className="loading loading-spinner"></span>}
       {children}
     </button>
