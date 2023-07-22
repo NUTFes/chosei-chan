@@ -49,7 +49,9 @@ export const Sizes: Story = {
   },
   render: (args) => (
     <div className='flex gap-8'>
+      <Button {...args} size="lg" />
       <Button {...args} size="md" />
+      <Button {...args} size="sm" />
       <Button {...args} size="xs" />
     </div>
   ),
