@@ -23,3 +23,7 @@ npm run storybook
 - コミットメッセージ
   - `[{prefix}] {commit message}`
   - ex: [fix] ボタンコンポーネントバグの修正
+
+- prefix
+  - feat: 新規開発
+  - fix: バグ修正
