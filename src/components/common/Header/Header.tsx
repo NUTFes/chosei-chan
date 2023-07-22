@@ -1,11 +1,9 @@
 const Header: React.FC = () => {
   return (
-    <header className="bg-primary h-16">
-      <div className="flex items-center justify-left h-full">
-        <a className="text-white text-5xl ">
-          Chosei-Chan
-        </a>
-      </div>
+    <header className="flex items-center bg-primary h-16">
+      <a className="text-white text-3xl px-4" href="/" target="_blank" rel="noopener noreferrer">
+        Chosei-Chan
+      </a>
     </header>
   );
 }

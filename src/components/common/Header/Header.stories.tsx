@@ -10,10 +10,4 @@ const meta: Meta<typeof Header> = {
 export default meta;
 type Story = StoryObj<typeof Header>;
 
-export const Defualt: Story = {
-  args: {
-    children: 'Header',
-    variants: 'primary',
-    size: 'md',
-  },
-};
+export const Defualt: Story = {};
