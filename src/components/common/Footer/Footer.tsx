@@ -11,13 +11,13 @@ const Footer: React.FC = () => {
                 <p>Copyright © 2023 - NUTMEG</p>
             </div>
             <div className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-                <a href="https://twitter.com/nutfes_nutmeg?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+                <a className="hover:scale-125" href="https://twitter.com/nutfes_nutmeg?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
                     <AiOutlineTwitter size="24"/>
                 </a>
-                <a className="link" href="https://blog.nutmeg.cloud/">
+                <a className="link link-hover hover:scale-125" href="https://blog.nutmeg.cloud/">
                     Blog
                 </a>
-                <a className="link" href="https://www.nutfes.net/">
+                <a className="link link-hover hover:scale-125" href="https://www.nutfes.net/">
                     HP
                 </a>
             </div>
