@@ -8,8 +8,7 @@ const TextArea: React.FC<TextAreaProps> = ({
     const borderedClass = bordered ? 'textarea-bordered' : '';
     const ghostedClass = ghosted ? 'testarea-ghost' : '';
     return (
-      <textarea className={classNames('textarea', borderedClass, ghostedClass)}>
-      </textarea>
+      <textarea className={classNames('textarea', borderedClass, ghostedClass)}/>
     );
   };
 
