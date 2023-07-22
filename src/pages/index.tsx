@@ -7,6 +7,7 @@ export default function Home() {
   return (
     <main>
       <button className="btn">Button</button>
+      <textarea className="textarea" placeholder="hello"></textarea>
     </main>
   );
 }
