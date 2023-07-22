@@ -13,5 +13,6 @@ type Story = StoryObj<typeof Collapse>;
 export const Defualt: Story = {
   args: {
     children: '',
+    text: '',
   },
 };
