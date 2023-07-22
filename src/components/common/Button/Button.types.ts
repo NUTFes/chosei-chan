@@ -1,5 +1,5 @@
 export type ButtonProps = {
-  variants: 'primary' | 'secondary';
+  variants?: 'primary' | 'secondary';
   size?: 'xs' | 'md';
   outlined?: boolean;
   loading?: boolean;

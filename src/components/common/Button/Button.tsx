@@ -3,13 +3,12 @@ import classNames from 'classnames';
 
 const Button: React.FC<ButtonProps> = ({
   children,
-  variants = 'active',
+  variants = 'primary',
   size = 'md',
   loading,
   outlined,
   ...props
 }) => {
-  console.log(variants, size)
   return (
     <button
       className={classNames('btn', `btn-${variants}`, `btn-${size}`, outlined && 'btn-outline')}
