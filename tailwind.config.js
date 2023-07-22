@@ -13,11 +13,11 @@ module.exports = {
       },
     },
   },
+  plugins: [require('daisyui')],
   daisyui: {
     themes: [
       "valentine"
     ],
     darkTheme: false,
   },
-  plugins: [require("daisyui")],
-}
+};
