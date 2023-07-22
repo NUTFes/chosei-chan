@@ -42,6 +42,21 @@ export const Defualt: Story = {
   },
 };
 
+export const Sizes: Story = {
+  args: {
+    children: 'Button',
+    variants: 'primary',
+  },
+  render: (args) => (
+    <div className='flex gap-8'>
+      <Button {...args} size="lg" />
+      <Button {...args} size="md" />
+      <Button {...args} size="sm" />
+      <Button {...args} size="xs" />
+    </div>
+  ),
+}
+
 export const Variants: Story = {
   args: {
     children: 'Button',
@@ -75,5 +90,11 @@ export const Loading: Story = {
     size: 'md',
     loading: true,
   },
+  render: (args) => (
+    <div className='flex gap-8'>
+      <Button {...args} variants="primary" />
+      <Button {...args} variants="secondary" />
+    </div>
+  ),
 };
 
