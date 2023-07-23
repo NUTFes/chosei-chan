@@ -3,7 +3,7 @@ on:
     branches:
       - develop
     paths:
-      - "."
+      - '.'
 
 jobs:
   prettier:

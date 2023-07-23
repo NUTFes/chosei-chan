@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "./**"
+      - './**'
 
 env:
   CSR_API_URL: ${{secrets.CSR_API_URL}}
