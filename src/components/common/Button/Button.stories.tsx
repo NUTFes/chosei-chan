@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Button from './Button';
+import type { Meta, StoryObj } from '@storybook/react'
+import Button from './Button'
 
 const meta: Meta<typeof Button> = {
   title: 'common/Button',
@@ -29,10 +29,10 @@ const meta: Meta<typeof Button> = {
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Button>;
+export default meta
+type Story = StoryObj<typeof Button>
 
 export const Defualt: Story = {
   args: {
@@ -40,7 +40,7 @@ export const Defualt: Story = {
     variants: 'primary',
     size: 'md',
   },
-};
+}
 
 export const Sizes: Story = {
   args: {
@@ -49,10 +49,10 @@ export const Sizes: Story = {
   },
   render: (args) => (
     <div className='flex gap-8'>
-      <Button {...args} size="lg" />
-      <Button {...args} size="md" />
-      <Button {...args} size="sm" />
-      <Button {...args} size="xs" />
+      <Button {...args} size='lg' />
+      <Button {...args} size='md' />
+      <Button {...args} size='sm' />
+      <Button {...args} size='xs' />
     </div>
   ),
 }
@@ -64,8 +64,8 @@ export const Variants: Story = {
   },
   render: (args) => (
     <div className='flex gap-8'>
-      <Button {...args} variants="primary" />
-      <Button {...args} variants="secondary" />
+      <Button {...args} variants='primary' />
+      <Button {...args} variants='secondary' />
     </div>
   ),
 }
@@ -78,8 +78,8 @@ export const Outlined: Story = {
   },
   render: (args) => (
     <div className='flex gap-8'>
-      <Button {...args} variants="primary" />
-      <Button {...args} variants="secondary" />
+      <Button {...args} variants='primary' />
+      <Button {...args} variants='secondary' />
     </div>
   ),
 }
@@ -92,9 +92,8 @@ export const Loading: Story = {
   },
   render: (args) => (
     <div className='flex gap-8'>
-      <Button {...args} variants="primary" />
-      <Button {...args} variants="secondary" />
+      <Button {...args} variants='primary' />
+      <Button {...args} variants='secondary' />
     </div>
   ),
-};
-
+}
