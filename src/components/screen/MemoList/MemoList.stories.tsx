@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import MemoList from './MemoList'
-import { USERS } from '@/constant/users'
+import { USERS } from '@/constant/data'
 
 const meta: Meta<typeof MemoList> = {
   title: 'screen/MemoList',
