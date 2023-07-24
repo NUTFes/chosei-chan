@@ -1,15 +1,12 @@
-import { TextAreaProps } from "./TextArea.types";
-import classNames from "classnames";
+import classNames from 'classnames'
+import { TextAreaProps } from './TextArea.types'
 
-const TextArea: React.FC<TextAreaProps> = ({
-    bordered,
-    ghosted,
-  }) => {
-    const borderedClass = bordered ? 'textarea-bordered' : '';
-    const ghostedClass = ghosted ? 'testarea-ghost' : '';
-    return (
-      <textarea className={classNames('textarea', borderedClass, ghostedClass)}/>
-    );
-  };
+const TextArea: React.FC<TextAreaProps> = ({ bordered, ghosted }) => {
+  const borderedClass = bordered ? 'textarea-bordered' : ''
+  const ghostedClass = ghosted ? 'testarea-ghost' : ''
+  return (
+    <textarea className={classNames('textarea bg-white', borderedClass, ghostedClass)} />
+  )
+}
 
-  export default TextArea;
+export default TextArea
