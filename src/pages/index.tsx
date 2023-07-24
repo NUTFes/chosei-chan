@@ -5,64 +5,46 @@ import { MainLayout } from '@/components/layout/MainLayout'
 export default function Home() {
   return (
     <MainLayout>
-      <div className='m-auto mt-20 hidden w-4/5 grid-cols-4 gap-4 md:grid'>
-        <div className='col-span-2 ml-28 w-80 gap-4'>
-          <div className='flex gap-4'>
-            <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>STEP1</p>
-            <p className='my-auto text-xl font-semibold'>イベント名を入力</p>
+      <div className='my-10 flex flex-col items-center gap-16 md:my-16'>
+        <div className='m-auto flex w-4/5 flex-wrap md:flex-nowrap md:gap-16'>
+          <div className='flex flex-col md:w-1/2'>
+            <div className='flex flex-col gap-2'>
+              <div className='flex items-center gap-4'>
+                <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>
+                  STEP1
+                </p>
+                <p className='text-xl font-semibold'>イベント名を入力</p>
+              </div>
+              <p className='text-sm'>※飲み会、会議など</p>
+              <Input />
+            </div>
+            <div className='divider' />
+            <div className='flex flex-col gap-2'>
+              <div className='flex items-center gap-4'>
+                <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>
+                  STEP2
+                </p>
+                <p className='text-xl font-semibold'>メモを入力（任意）</p>
+              </div>
+              <p className='text-sm'>※飲み会、会議など</p>
+              <TextArea bordered={true} ghosted={false} />
+              <div className='divider md:hidden' />
+            </div>
           </div>
-          <p className='ml-16 text-sm'>※飲み会、会議など</p>
-        </div>
-        <div className='col-span-2 ml-8'>
-          <div className='flex gap-4'>
-            <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>STEP3</p>
-            <p className='my-auto text-xl font-semibold'>日程の入力</p>
+          <div className='flex flex-col md:w-1/2'>
+            <div className='flex flex-col gap-2'>
+              <div className='flex items-center gap-4'>
+                <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>
+                  STEP3
+                </p>
+                <p className='text-xl font-semibold'>日付を入力</p>
+              </div>
+              <p className='text-sm'>※飲み会、会議など</p>
+              <div>ここにカレンダー</div>
+            </div>
           </div>
-          <p className='ml-16 text-sm'>※日程調整日を選択</p>
         </div>
-        <div className='col-span-2 ml-36'>
-          <Input />
-        </div>
-        <div className='col-span-2 row-span-3 m-auto h-48 w-1/2 rounded-lg bg-accent'>
-          カレンダー
-        </div>
-        <div className='col-span-2 ml-28 w-80'>
-          <div className='flex gap-4'>
-            <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>STEP2</p>
-            <p className='my-auto text-xl font-semibold'>メモを入力(任意)</p>
-          </div>
-          <p className='ml-16 text-sm'>※出欠〆切は◯日</p>
-        </div>
-        <div className='col-span-2 ml-36'>
-          <TextArea bordered={true} ghosted={false} />
-        </div>
-      </div>
-      <div className='m-auto mt-5 block w-4/5 md:hidden'>
-        <div className='flex gap-4'>
-          <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>STEP1</p>
-          <p className='my-auto text-xl font-semibold'>イベント名を入力</p>
-        </div>
-        <p className='ml-16 text-sm'>※飲み会、会議など</p>
-        <div className='ml-10 mt-2'>
-          <Input />
-        </div>
-        <div className='mt-4 flex gap-4'>
-          <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>STEP2</p>
-          <p className='my-auto text-xl font-semibold'>メモを入力(任意)</p>
-        </div>
-        <p className='ml-16 text-sm'>※出欠〆切は◯日</p>
-        <div className='ml-10 mt-2'>
-          <TextArea bordered={true} ghosted={false} />
-        </div>
-        <div className='mt-4 flex gap-4'>
-          <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>STEP3</p>
-          <p className='my-auto text-xl font-semibold'>日程の入力</p>
-        </div>
-        <p className='ml-16 text-sm'>※日程調整日を選択</p>
-        <div className='m-auto mt-4 h-48 rounded-lg bg-accent'>カレンダー</div>
-      </div>
-      <div className='my-8 flex justify-center font-semibold md:my-16'>
-        <Button>調整ちゃんを作成</Button>
+        <Button>調整ちゃんを入力</Button>
       </div>
     </MainLayout>
   )
