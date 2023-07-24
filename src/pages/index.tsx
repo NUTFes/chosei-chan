@@ -7,7 +7,7 @@ export default function Home() {
       <div className='mx-auto my-10 flex w-80 flex-wrap justify-center gap-4'>
         <p className='w-fit rounded-lg bg-primary p-2 text-xl'>STEP1</p>
         <p className='my-auto text-xl underline'>イベント名を入力</p>
-        <Input></Input>
+        <Input />
       </div>
       <div className='my-4 flex justify-center gap-4'>
         <p className='w-fit rounded-lg bg-primary p-2 text-xl'>STEP2</p>
