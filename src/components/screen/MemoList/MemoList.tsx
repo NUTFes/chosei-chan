@@ -11,9 +11,11 @@ const MemoList: React.FC<MemoListProps> = ({ users }) => {
       <div className='chat chat-start gap-4'>
         {filterUsers.map((user) => (
           <>
-            <p className='ml-4 rounded-2xl bg-primary p-3 text-lg'>{user.name}</p>
+            <p className='ml-4 rounded-2xl bg-primary p-3 text-lg text-white'>
+              {user.name}
+            </p>
             <div className='chat-bubble chat-bubble-secondary my-auto'>
-              <p className='truncate'>{user.memo}</p>
+              <p className='truncate text-white'>{user.memo}</p>
             </div>
           </>
         ))}
