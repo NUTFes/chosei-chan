@@ -15,7 +15,7 @@ export default function Home() {
                 </p>
                 <p className='text-xl font-semibold'>イベント名を入力</p>
               </div>
-              <p className='text-sm'>※飲み会、会議など</p>
+              <p className='ml-4 text-sm'>※飲み会、会議など</p>
               <Input />
             </div>
             <div className='divider' />
@@ -26,7 +26,7 @@ export default function Home() {
                 </p>
                 <p className='text-xl font-semibold'>メモを入力（任意）</p>
               </div>
-              <p className='text-sm'>※飲み会、会議など</p>
+              <p className='ml-4 text-sm'>※飲み会、会議など</p>
               <TextArea bordered={true} ghosted={false} />
               <div className='divider md:hidden' />
             </div>
@@ -39,7 +39,7 @@ export default function Home() {
                 </p>
                 <p className='text-xl font-semibold'>日付を入力</p>
               </div>
-              <p className='text-sm'>※飲み会、会議など</p>
+              <p className='ml-4 text-sm'>※候補日時を選択</p>
               <div>ここにカレンダー</div>
             </div>
           </div>
