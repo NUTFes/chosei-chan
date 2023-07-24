@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc, getDocs, collection } from 'firebase/firestore'
 import { db } from './firebase'
 import { Schedule } from '@/type/common'
 
@@ -16,8 +16,8 @@ function generateRandomString(length: number): string {
 // スケジュールを追加する関数
 export async function addSchedule(data: Schedule) {
   const id = generateRandomString(10)
-
   try {
+    data.id = id
     const docRef = doc(db, 'schedules', id) // "test"コレクションの新しいドキュメントの参照を取得
 
     await setDoc(docRef, data) // データをドキュメントにセット
@@ -45,4 +45,21 @@ export async function getSchedule(id: string) {
   }
 
   return null
+}
+
+// スケジュールを全取得する関数
+export async function getAllSchedules() {
+  try {
+    const docRefs = collection(db, 'schedules') // "schedules"コレクションの中の"aaaaaa"ドキュメントの参照を取得
+
+    const querySnapshot = await getDocs(docRefs)
+    // 取得したドキュメントを配列に変換して返す
+    const documents = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() }
+    })
+
+    return documents
+  } catch (error) {
+    console.error('データの取得中にエラーが発生しました:', error)
+  }
 }
