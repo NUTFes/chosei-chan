@@ -1,8 +1,7 @@
-import { InputProps } from './Input.types';
-import classNames from 'classnames';
+import { InputProps } from './Input.types'
 
 const Input: React.FC<InputProps> = (props) => {
-  return <input className="input input-bordered" {...props} />;
-};
+  return <input className='input input-bordered bg-white' {...props} />
+}
 
-export default Input;
+export default Input
