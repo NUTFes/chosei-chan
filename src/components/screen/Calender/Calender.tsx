@@ -14,7 +14,7 @@ import {
 import { useState } from 'react'
 import { CalenderProps } from './Calender.types'
 
-const Calendar: React.FC<CalenderProps> = (onChange) => {
+const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
   const [targetMonth, setTargetMonth] = useState(new Date())
   const [selectedDates, setSelectedDates] = useState<number[]>([])
 
