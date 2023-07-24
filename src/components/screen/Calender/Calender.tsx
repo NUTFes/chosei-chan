@@ -12,6 +12,7 @@ import {
   endOfMonth,
 } from 'date-fns'
 import { useState } from 'react'
+import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 import { CalenderProps } from './Calender.types'
 
 const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
@@ -54,13 +55,13 @@ const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
 
   return (
     <div className='mx-auto my-2 grid w-2/5 '>
-      <div className='my-2 flex justify-center text-3xl '>
-        <button className='mr-auto text-2xl ' onClick={handlePreviousMonth}>
-          ＜ {getMonth(subMonths(targetMonth, 1)) + 1}月
+      <div className='my-2 flex items-center justify-center text-3xl'>
+        <button className='btn btn-ghost mr-auto text-xl' onClick={handlePreviousMonth}>
+          <MdArrowBackIosNew /> {getMonth(subMonths(targetMonth, 1)) + 1}月
         </button>
         {format(targetMonth, 'y年M月')}
-        <button className='ml-auto text-2xl ' onClick={handleNextMonth}>
-          {getMonth(addMonths(targetMonth, 1)) + 1}月 ＞
+        <button className='btn btn-ghost ml-auto text-xl' onClick={handleNextMonth}>
+          {getMonth(addMonths(targetMonth, 1)) + 1}月 <MdArrowForwardIos />
         </button>
       </div>
       <table>
