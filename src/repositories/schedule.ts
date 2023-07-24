@@ -18,9 +18,9 @@ export async function addSchedule(data: Schedule) {
   const id = generateRandomString(10)
   try {
     data.id = id
-    const docRef = doc(db, 'schedules', id) // "test"コレクションの新しいドキュメントの参照を取得
+    const docRef = doc(db, 'schedules', id)
 
-    await setDoc(docRef, data) // データをドキュメントにセット
+    await setDoc(docRef, data)
   } catch (error) {
     console.error('データの追加中にエラーが発生しました:', error)
   }
@@ -32,28 +32,23 @@ export async function getSchedule(id: string) {
     const docRef = doc(db, 'schedules', id)
 
     const scheduleRes = await getDoc(docRef)
-    // ドキュメントが存在するかチェック
     if (scheduleRes.exists()) {
-      // ドキュメントデータを取得して返す
       return scheduleRes.data()
     } else {
-      // ドキュメントが存在しない場合はnullを返す
       return null
     }
   } catch (error) {
     console.error('データの取得中にエラーが発生しました:', error)
   }
-
   return null
 }
 
 // スケジュールを全取得する関数
 export async function getAllSchedules() {
   try {
-    const docRefs = collection(db, 'schedules') // "schedules"コレクションの中の"aaaaaa"ドキュメントの参照を取得
+    const docRefs = collection(db, 'schedules')
 
     const querySnapshot = await getDocs(docRefs)
-    // 取得したドキュメントを配列に変換して返す
     const documents = querySnapshot.docs.map((doc) => {
       return { id: doc.id, ...doc.data() }
     })
@@ -62,4 +57,5 @@ export async function getAllSchedules() {
   } catch (error) {
     console.error('データの取得中にエラーが発生しました:', error)
   }
+  return null
 }
