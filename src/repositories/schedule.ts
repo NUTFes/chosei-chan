@@ -1,4 +1,4 @@
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 import { db } from './firebase'
 import { Schedule } from '@/type/common'
 
@@ -24,4 +24,25 @@ export async function addSchedule(data: Schedule) {
   } catch (error) {
     console.error('データの追加中にエラーが発生しました:', error)
   }
+}
+
+// スケジュールを取得する関数
+export async function getSchedule(id: string) {
+  try {
+    const docRef = doc(db, 'schedules', id)
+
+    const scheduleRes = await getDoc(docRef)
+    // ドキュメントが存在するかチェック
+    if (scheduleRes.exists()) {
+      // ドキュメントデータを取得して返す
+      return scheduleRes.data()
+    } else {
+      // ドキュメントが存在しない場合はnullを返す
+      return null
+    }
+  } catch (error) {
+    console.error('データの取得中にエラーが発生しました:', error)
+  }
+
+  return null
 }
