@@ -37,7 +37,31 @@ export default function Home() {
           <TextArea bordered={true} ghosted={false} />
         </div>
       </div>
-      <div className='mt-16 flex justify-center font-semibold'>
+      <div className='m-auto mt-5 block w-4/5 md:hidden'>
+        <div className='flex gap-4'>
+          <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>STEP1</p>
+          <p className='my-auto text-xl font-semibold'>イベント名を入力</p>
+        </div>
+        <p className='ml-16 text-sm'>※飲み会、会議など</p>
+        <div className='ml-10 mt-2'>
+          <Input />
+        </div>
+        <div className='mt-4 flex gap-4'>
+          <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>STEP2</p>
+          <p className='my-auto text-xl font-semibold'>メモを入力(任意)</p>
+        </div>
+        <p className='ml-16 text-sm'>※出欠〆切は◯日</p>
+        <div className='ml-10 mt-2'>
+          <TextArea bordered={true} ghosted={false} />
+        </div>
+        <div className='mt-4 flex gap-4'>
+          <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>STEP3</p>
+          <p className='my-auto text-xl font-semibold'>日程の入力</p>
+        </div>
+        <p className='ml-16 text-sm'>※日程調整日を選択</p>
+        <div className='m-auto mt-4 h-48 rounded-lg bg-accent'>カレンダー</div>
+      </div>
+      <div className='my-8 flex justify-center font-semibold md:my-16'>
         <Button>調整ちゃんを作成</Button>
       </div>
     </MainLayout>
