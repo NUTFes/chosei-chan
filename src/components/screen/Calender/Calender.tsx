@@ -49,7 +49,7 @@ const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
   }
 
   const handleSubmit = () => {
-    console.log(selectedDates)
+    onChange(selectedDates)
   }
 
   return (

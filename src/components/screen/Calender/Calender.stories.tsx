@@ -10,4 +10,10 @@ const meta: Meta<typeof Calender> = {
 export default meta
 type Story = StoryObj<typeof Calender>
 
-export const Defualt: Story = {}
+export const Default: Story = {
+  args: {
+    onChange: (selectedDates: number[]) => {
+      alert(selectedDates)
+    },
+  },
+}
