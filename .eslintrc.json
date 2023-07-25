@@ -89,6 +89,9 @@
     "unused-imports/no-unused-imports": "error"
   },
   "settings": {
+    "tailwindcss": {
+      "whitelist": ["top-screen"]
+    },
     "import/resolver": {
       "node": {
         "extensions": [".ts", ".tsx"]
