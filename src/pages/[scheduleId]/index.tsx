@@ -5,29 +5,31 @@ import { USERS, SCHEDULE } from '@/constant/data'
 export default function Home() {
   return (
     <MainLayout>
-      <div className='m-auto mt-20 w-4/5 md:gap-4 md:grid'>
-        <div className='col-span-2 ml-12 md:ml-28 gap-4'>
-          <div className='gap-4 underline underline-offset-8'>
-            <p className='my-auto'>
-              <span className='text-sm md:text-xl font-semibold'>イベント名　</span>
-              <span className='text-sm md:text-xl font-semibold'>{SCHEDULE.name}</span>
-              <span className='text-xs md:text-sm font-semibold'>参加者数{USERS.length}人</span>
+      <div className='mx-auto mt-20 flex w-4/5 flex-col items-center gap-8'>
+        <div className='flex items-center gap-4 border-b-2 border-primary col-span-2 ml-6 md:ml-28'>
+          <div className='bg-primary p-2'>
+            <p className='text-sm md:text-xl font-bold text-white whitespace-nowrap'>
+              イベント名
             </p>
           </div>
+          <p className='text-sm md:text-xl'>{SCHEDULE.name}</p>
+          <p className='ml-auto text-sm whitespace-nowrap'>参加{USERS.length}人</p>
         </div>
-        <div className='col-span-2 ml-12 md:ml-28 flex'>
-          <p className='text-sm md:text-xl font-semibold underline underline-offset-8'>備考　</p>
-          <p className='text-sm md:text-xl font-semibold underline underline-offset-8 whitespace-pre-wrap'>
+        <div className='col-span-2 ml-6 flex-col md:ml-28 '>
+          <p className='text-sm font-semibold md:text-xl'>備考</p>
+          <p className='whitespace-pre-wrap text-sm font-semibold md:text-xl'>
             {SCHEDULE.memo}
           </p>
-          <div className='col-span-1 md:col-span-2 text-xs row-span-3 m-2 md:m-auto h-12 w-12 rounded-full bg-accent'>
-            シェアor入力遷移ボタン
+          <div className='my-6 w-full gap-4'>
+            <div className='ml-auto w-1/4 rounded-lg bg-primary p-2 text-white'>
+              <p>共有ボタン</p>
+            </div>
+            <div className='h-40 w-full items-center justify-center rounded-lg bg-primary text-white'>
+              スケジュール
+            </div>
           </div>
         </div>
-        <div className='col-span-1 md:col-span-2 row-span-3 m-auto h-48 w-1/2 rounded-lg bg-accent'>
-          スケジュール
-        </div>
-        <div className='col-span-1 md:col-span-2 md:row-span-3 flex justify-center items-center'>
+        <div className='flex w-full items-center justify-center'>
           <MemoList users={USERS} />
         </div>
       </div>
