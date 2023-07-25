@@ -1,3 +1,4 @@
+import { ShareButton } from '@/components/common/ShareButton'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { MemoList } from '@/components/screen/MemoList'
 import { USERS, SCHEDULE } from '@/constant/data'
@@ -17,12 +18,12 @@ export default function Home() {
         </div>
         <div className='col-span-2 ml-6 flex-col md:ml-28 '>
           <p className='text-sm font-semibold md:text-xl'>備考</p>
-          <p className='whitespace-pre-wrap text-sm font-semibold md:text-xl'>
+          <p className='whitespace-pre-wrap text-sm font-semibold md:text-xl underline underline-offset-4'>
             {SCHEDULE.memo}
           </p>
           <div className='my-6 w-full gap-4'>
-            <div className='ml-auto w-1/4 rounded-lg bg-primary p-2 text-white'>
-              <p>共有ボタン</p>
+            <div className='flex flex-row-reverse'>
+              <ShareButton />
             </div>
             <div className='h-40 w-full items-center justify-center rounded-lg bg-primary text-white'>
               スケジュール
