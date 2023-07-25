@@ -21,8 +21,8 @@ const ShareButtons: React.FC = () => {
   }
 
   return (
-    <div className='flex items-center'>
-      <button className='btn btn-ghost' onClick={handleCopy}>
+    <div className='flex items-center gap-2'>
+      <button className='btn btn-circle btn-ghost' onClick={handleCopy}>
         <AiOutlineCopy size='25' />
       </button>
       <button onClick={handleShareLine}>
