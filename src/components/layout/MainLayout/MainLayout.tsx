@@ -1,20 +1,18 @@
 import React from 'react'
-import { Footer } from '@/components/common'
-import { Header } from '@/components/common'
+import { Footer, Header } from '@/components/common'
 
 interface Props {
   children: React.ReactNode
-};
+}
 
-const MainLayout = (props:Props) => {
-
+const MainLayout = (props: Props) => {
   return (
     <div>
       <Header />
-        <div>{props.children}</div>
+      <div>{props.children}</div>
       <Footer />
     </div>
   )
-};
+}
 
-export default MainLayout;
+export default MainLayout
