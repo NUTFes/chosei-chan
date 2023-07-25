@@ -25,9 +25,9 @@ const ShareButtons: React.FC = () => {
       <button className='btn btn-ghost' onClick={handleCopy}>
         <AiOutlineCopy size='25' />
       </button>
-      <div onClick={handleShareLine}>
+      <button onClick={handleShareLine}>
         <Image src='/LINE_Brand_icon.png' width={36} height={36} alt='logo' />
-      </div>
+      </button>
       <ToastContainer position='bottom-right' autoClose={3000} />
     </div>
   )
