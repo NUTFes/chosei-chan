@@ -4,7 +4,7 @@ import { AiOutlineCopy } from 'react-icons/ai'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const ShareButton: React.FC = () => {
+const ShareButtons: React.FC = () => {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(location.href)
@@ -33,4 +33,4 @@ const ShareButton: React.FC = () => {
   )
 }
 
-export default ShareButton
+export default ShareButtons
