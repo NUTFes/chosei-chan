@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import TextArea from './TextArea';
+import type { Meta, StoryObj } from '@storybook/react'
+import TextArea from './TextArea'
 
 const meta: Meta<typeof TextArea> = {
   title: 'common/TextArea',
@@ -14,13 +14,13 @@ const meta: Meta<typeof TextArea> = {
     ghosted: {
       control: {
         type: 'boolean',
-      }
-    }
+      },
+    },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof TextArea>;
+export default meta
+type Story = StoryObj<typeof TextArea>
 
 export const Bordered: Story = {
   args: {
@@ -28,20 +28,20 @@ export const Bordered: Story = {
   },
   render: (args) => (
     <div className='flex gap-8'>
-      <TextArea {...args}/>
-      <TextArea {...args}/>
+      <TextArea {...args} />
+      <TextArea {...args} />
     </div>
   ),
 }
 
 export const Ghosted: Story = {
-    args: {
-      ghosted: true,
-    },
-    render: (args) => (
-      <div className='flex gap-8 bg-primary'>
-        <TextArea className="textarea-primary" {...args}/>
-        <TextArea className="textarea-secondry" {...args}/>
-      </div>
-    ),
-  }
+  args: {
+    ghosted: true,
+  },
+  render: (args) => (
+    <div className='flex gap-8 bg-primary'>
+      <TextArea className='textarea-primary' {...args} />
+      <TextArea className='textarea-secondry' {...args} />
+    </div>
+  ),
+}

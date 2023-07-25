@@ -1,4 +1,4 @@
 export type CollapseProps = {
-  children: React.ReactNode;
+  children: React.ReactNode
   text: string
-};
+}
