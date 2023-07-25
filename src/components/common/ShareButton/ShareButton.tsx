@@ -2,10 +2,9 @@ import Image from 'next/image'
 import React from 'react'
 import { AiOutlineCopy } from 'react-icons/ai'
 import { toast, ToastContainer } from 'react-toastify'
-import { ShareButtonProps } from './ShareButton.type'
 import 'react-toastify/dist/ReactToastify.css'
 
-const ShareButton: React.FC<ShareButtonProps> = () => {
+const ShareButton: React.FC = () => {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(location.href)
