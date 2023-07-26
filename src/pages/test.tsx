@@ -1,22 +1,31 @@
 import type { NextPage } from 'next'
 import { SCHEDULE } from '@/constant/data'
-import { addSchedule, getAllSchedules, getSchedule } from '@/repositories/schedule'
+import {
+  addSchedule,
+  getAllSchedules,
+  getSchedule,
+  updateSchedule,
+} from '@/repositories/schedule'
 
 const insert = async () => {
   const doc = await addSchedule(SCHEDULE)
-  // console.log('Document written with ID: ', doc.id)
+  console.log('Document written with ID: ', doc.id)
 }
 
 const get = async () => {
-  await getSchedule('dfpCkRahuP')
   const scheduleData = await getSchedule('dfpCkRahuP')
-  // console.log(scheduleData)
+  console.log(scheduleData)
 }
 
 const getAll = async () => {
-  await getAllSchedules()
   const scheduleData = await getAllSchedules()
-  // console.log(scheduleData)
+  console.log(scheduleData)
+}
+
+const update = async () => {
+  const id = 'tNp6BizMPL2uRok5TKZF'
+  await updateSchedule(SCHEDULE, id)
+  console.log('Updated with ID: ', id)
 }
 
 const Home: NextPage = () => {
@@ -39,6 +48,12 @@ const Home: NextPage = () => {
         onClick={() => getAll()}
       >
         Get All Schedules
+      </button>
+      <button
+        className='mt-4 w-60 rounded-full bg-secondary px-4 py-2 font-bold text-white hover:bg-secondary-focus'
+        onClick={() => update()}
+      >
+        Update Schedule
       </button>
     </div>
   )

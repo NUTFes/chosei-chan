@@ -1,4 +1,4 @@
-import { doc, addDoc, getDoc, getDocs, collection } from 'firebase/firestore'
+import { doc, addDoc, getDoc, getDocs, collection, setDoc } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { Schedule } from '@/type/common'
 
@@ -41,6 +41,17 @@ export async function getAllSchedules() {
     return documents
   } catch (error) {
     console.error('データの取得中にエラーが発生しました:', error)
+  }
+  return null
+}
+
+// スケジュールを更新する関数
+export async function updateSchedule(data: Schedule, id: string) {
+  try {
+    const docRef = await setDoc(doc(db, 'schedules', id), data)
+    return docRef
+  } catch (error) {
+    console.error('データの追加中にエラーが発生しました:', error)
   }
   return null
 }
