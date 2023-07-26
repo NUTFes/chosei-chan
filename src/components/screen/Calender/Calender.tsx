@@ -12,15 +12,15 @@ import {
   startOfMonth,
   endOfMonth,
 } from 'date-fns'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 import { CalenderProps } from './Calender.types'
 
-const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
+const Calender: React.FC<CalenderProps> = ({ onChange }) => {
   const [targetMonth, setTargetMonth] = useState(new Date())
   const [selectedDates, setSelectedDates] = useState<number[]>([])
 
-  const getCalendarArray = (date: Date) => {
+  const getCalenderArray = (date: Date) => {
     const sundays = eachWeekOfInterval({
       start: startOfMonth(date),
       end: endOfMonth(date),
@@ -29,7 +29,7 @@ const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
       eachDayOfInterval({ start: sunday, end: endOfWeek(sunday) }),
     )
   }
-  const calendar = getCalendarArray(targetMonth)
+  const calender = getCalenderArray(targetMonth)
 
   const handleDateClick = (date: Date) => {
     const unixTime = date.getTime()
@@ -50,9 +50,9 @@ const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
     setTargetMonth((current) => addMonths(current, 1))
   }
 
-  const handleSubmit = () => {
+  useEffect(() => {
     onChange(selectedDates)
-  }
+  }, [selectedDates])
 
   return (
     <div className='flex-col'>
@@ -82,7 +82,7 @@ const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
           </tr>
         </thead>
         <tbody>
-          {calendar.map((weekRow, rowNum) => (
+          {calender.map((weekRow, rowNum) => (
             <tr key={rowNum}>
               {weekRow.map((date) => {
                 const unixTime = date.getTime()
@@ -90,6 +90,7 @@ const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
                 return (
                   <td key={getDay(date)} className='pt-1 text-center md:px-1'>
                     <button
+                      type='button'
                       draggable
                       onClick={() => handleDateClick(date)}
                       onDragEnter={(e) => {
@@ -110,11 +111,8 @@ const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
           ))}
         </tbody>
       </table>
-      <button onClick={handleSubmit} className='btn btn-primary mt-4'>
-        送信
-      </button>
     </div>
   )
 }
 
-export default Calendar
+export default Calender
