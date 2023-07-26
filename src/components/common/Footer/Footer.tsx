@@ -3,7 +3,7 @@ import { AiOutlineTwitter } from 'react-icons/ai'
 
 const Footer: React.FC = () => {
   return (
-    <footer className='footer items-center bg-neutral p-4 text-neutral-content md:absolute'>
+    <footer className='footer bg-neutral p-4 text-neutral-content'>
       <div className='grid-flow-col items-center'>
         <Image src='/logo_images.png' width={36} height={36} alt='logo' />
         <p>Copyright © 2023 - NUTMEG</p>
