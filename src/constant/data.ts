@@ -58,3 +58,9 @@ export const SCHEDULE: Schedule = {
   memo: '出席できる日追加して下さい',
   dates: [1690038000, 1690124400, 1690210800],
 }
+
+export const USER: User = {
+  id: '5',
+  name: 'テスト太郎',
+  memo: 'いけません',
+}
