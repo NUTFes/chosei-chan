@@ -48,7 +48,7 @@ const updateU = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
 
   const doc = await updateUser(id, USERS, USER, 1)
-  console.log(doc)
+  // console.log(doc)
 }
 
 const deleteU = async () => {
