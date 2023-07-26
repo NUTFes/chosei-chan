@@ -51,6 +51,8 @@ export const SCHEDULE: Schedule = {
   name: '飲み会',
   memo: '出席できる日追加して下さい',
   dates: [1690038000, 1690124400, 1690210800],
+  createdAt: null,
+  updatedAt: null,
 }
 
 export const USER: User = {

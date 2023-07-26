@@ -17,6 +17,8 @@ export interface Schedule {
   name: string
   memo?: string | null
   dates: number[]
+  createdAt?: number | null
+  updatedAt?: number | null
 }
 
 export const availableSchema = z.object({
@@ -36,4 +38,6 @@ export const scheduleSchema = z.object({
   memo: z.string().nullable(),
   users: z.array(userSchema).nullable(),
   dates: z.array(z.number()),
+  createdAt: z.number().nullable(),
+  updatedAt: z.number().nullable(),
 })
