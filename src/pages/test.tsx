@@ -15,7 +15,8 @@ const insert = async () => {
 }
 
 const get = async () => {
-  const scheduleData = await getSchedule('dfpCkRahuP')
+  const id = 'YyyrWIL8YfRZj6oD72t4'
+  const scheduleData = await getSchedule(id)
   // console.log(scheduleData)
 }
 
