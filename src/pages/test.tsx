@@ -5,6 +5,7 @@ import {
   getAllSchedules,
   getSchedule,
   updateSchedule,
+  deleteSchedule,
 } from '@/repositories/schedule'
 
 const insert = async () => {
@@ -26,6 +27,12 @@ const update = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
   await updateSchedule(SCHEDULE, id)
   console.log('Updated with ID: ', id)
+}
+
+const deleteS = async () => {
+  const id = 'tNp6BizMPL2uRok5TKZF'
+  const res = await deleteSchedule(id)
+  console.log(res)
 }
 
 const Home: NextPage = () => {
@@ -54,6 +61,12 @@ const Home: NextPage = () => {
         onClick={() => update()}
       >
         Update Schedule
+      </button>
+      <button
+        className='mt-4 w-60 rounded-full bg-accent px-4 py-2 font-bold text-white hover:bg-accent-focus'
+        onClick={() => deleteS()}
+      >
+        Delete Schedule
       </button>
     </div>
   )

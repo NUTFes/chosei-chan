@@ -1,4 +1,12 @@
-import { doc, addDoc, getDoc, getDocs, collection, setDoc } from 'firebase/firestore'
+import {
+  doc,
+  addDoc,
+  getDoc,
+  getDocs,
+  collection,
+  setDoc,
+  deleteDoc,
+} from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { Schedule } from '@/type/common'
 
@@ -52,6 +60,17 @@ export async function updateSchedule(data: Schedule, id: string) {
     return docRef
   } catch (error) {
     console.error('データの追加中にエラーが発生しました:', error)
+  }
+  return null
+}
+
+// スケジュールを削除する関数
+export async function deleteSchedule(id: string) {
+  try {
+    await deleteDoc(doc(db, 'schedules', id))
+    return 'delete success'
+  } catch (error) {
+    console.error('データの取得中にエラーが発生しました:', error)
   }
   return null
 }
