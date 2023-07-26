@@ -7,39 +7,27 @@ import {
   deleteSchedule,
 } from '@/repositories/schedule'
 import { addUser, updateUser, deleteUser } from '@/repositories/user'
-import { Schedule } from '@/type/common'
 
-interface Props {
-  schedule: Schedule
-}
-
-export async function getServerSideProps() {
-  const id = 'x9pSN8saCyjaNOfXApLC'
-  const scheduleRes = await getSchedule(id)
-  return {
-    props: {
-      schedule: scheduleRes,
-    },
-  }
-}
 const insert = async () => {
   const res = await addSchedule(SCHEDULE)
   alert(res)
 }
 
 const get = async () => {
-  const id = 'x9pSN8saCyjaNOfXApLC'
+  const id = 'ugcvJL0cq9CK2u5BwVDA'
   const res = await getSchedule(id)
   alert(res)
+  console.log(res)
 }
 
 const getAll = async () => {
   const res = await getAllSchedules()
   alert(res)
+  console.log(res)
 }
 
 const update = async () => {
-  const id = 'tNp6BizMPL2uRok5TKZF'
+  const id = 'VLSnokfK3LM7ibIG4GBR'
   const res = await updateSchedule(id, SCHEDULE)
   alert(res)
 }
@@ -51,25 +39,24 @@ const deleteS = async () => {
 }
 
 const insertUser = async () => {
-  const id = 'x9pSN8saCyjaNOfXApLC'
+  const id = 'VLSnokfK3LM7ibIG4GBR'
   const res = await addUser(id, USER)
   alert(res)
 }
 
 const updateU = async () => {
-  const id = 'tNp6BizMPL2uRok5TKZF'
+  const id = 'VLSnokfK3LM7ibIG4GBR'
   const res = await updateUser(id, USERS, USER, 1)
   alert(res)
 }
 
 const deleteU = async () => {
-  const id = 'tNp6BizMPL2uRok5TKZF'
+  const id = 'VLSnokfK3LM7ibIG4GBR'
   const res = await deleteUser(id, USER)
   alert(res)
 }
 
-const Home = (props: Props) => {
-  const { schedule } = props
+const Home = () => {
   return (
     <>
       <div className='flex items-center justify-center gap-5'>
