@@ -1,4 +1,4 @@
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore'
+import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { User } from '@/type/common'
 
@@ -30,6 +30,19 @@ export async function updateUser(
       users: usersArray,
     })
     return `update user ${index}`
+  } catch (error) {
+    console.error('データの追加中にエラーが発生しました:', error)
+  }
+  return null
+}
+
+// ユーザーを削除するメソッド
+export async function deleteUser(id: string, deleteUser: User) {
+  try {
+    const docRef = doc(db, 'schedules', id)
+
+    await updateDoc(docRef, { users: arrayRemove(deleteUser) })
+    return `delete user`
   } catch (error) {
     console.error('データの追加中にエラーが発生しました:', error)
   }

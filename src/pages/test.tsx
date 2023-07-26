@@ -7,47 +7,54 @@ import {
   updateSchedule,
   deleteSchedule,
 } from '@/repositories/schedule'
-import { addUser, updateUser } from '@/repositories/user'
+import { addUser, updateUser, deleteUser } from '@/repositories/user'
 
 const insert = async () => {
   const doc = await addSchedule(SCHEDULE)
-  console.log('Document written with ID: ', doc.id)
+  // console.log('Document written with ID: ', doc.id)
 }
 
 const get = async () => {
   const scheduleData = await getSchedule('dfpCkRahuP')
-  console.log(scheduleData)
+  // console.log(scheduleData)
 }
 
 const getAll = async () => {
   const scheduleData = await getAllSchedules()
-  console.log(scheduleData)
+  // console.log(scheduleData)
 }
 
 const update = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
   await updateSchedule(id, SCHEDULE)
-  console.log('Updated with ID: ', id)
+  // console.log('Updated with ID: ', id)
 }
 
 const deleteS = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
   const res = await deleteSchedule(id)
-  console.log(res)
+  // console.log(res)
 }
 
 const insertUser = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
 
   const doc = await addUser(id, USER)
-  console.log(doc)
+  // console.log(doc)
 }
 
 const updateU = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
 
   const doc = await updateUser(id, USER, USERS, 1)
-  console.log(doc)
+  // console.log(doc)
+}
+
+const deleteU = async () => {
+  const id = 'tNp6BizMPL2uRok5TKZF'
+
+  const doc = await deleteUser(id, USER)
+  // console.log(doc)
 }
 
 const Home: NextPage = () => {
@@ -96,7 +103,13 @@ const Home: NextPage = () => {
           className='mt-4 w-60 rounded-full bg-secondary px-4 py-2 font-bold text-white hover:bg-secondary-focus'
           onClick={() => updateU()}
         >
-          Update Schedule
+          Update User
+        </button>
+        <button
+          className='mt-4 w-60 rounded-full bg-accent px-4 py-2 font-bold text-white hover:bg-accent-focus'
+          onClick={() => deleteU()}
+        >
+          Delete User
         </button>
       </div>
     </div>
