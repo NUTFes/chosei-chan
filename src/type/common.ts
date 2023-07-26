@@ -7,15 +7,15 @@ export interface Available {
 
 export interface User {
   name: string
-  memo?: string
-  availables?: Available[]
+  memo?: string | null
+  availables?: Available[] | null
 }
 
 export interface Schedule {
-  id?: string
-  users?: User[]
+  id?: string | null
+  users?: User[] | null
   name: string
-  memo?: string
+  memo?: string | null
   dates: number[]
 }
 

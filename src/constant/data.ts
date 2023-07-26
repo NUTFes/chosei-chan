@@ -54,7 +54,7 @@ export const SCHEDULE: Schedule = {
 }
 
 export const USER: User = {
+  availables: null,
   name: 'テスト太郎',
   memo: 'いけません',
-  availables: null,
 }
