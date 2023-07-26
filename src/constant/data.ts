@@ -2,15 +2,15 @@ import { Available, Schedule, User } from '../type/common'
 
 export const AVAILABLES1 = [
   {
-    from: 1672597800000,
-    to: 1672605000000,
+    from: 1672504200000,
+    to: 1672522200000,
   },
 ] as Available[]
 
 const AVAILABLES2 = [
   {
-    from: 1672506900000,
-    to: 1672519500000,
+    from: 1672682400000,
+    to: 1672705800000,
   },
 ] as Available[]
 
