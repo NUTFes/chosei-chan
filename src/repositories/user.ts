@@ -1,6 +1,7 @@
 import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
 import { db } from '../lib/firebase'
-import { User } from '@/type/common'
+import { getSchedule } from './schedule'
+import { User, scheduleSchema } from '@/type/common'
 
 // ユーザーを追加するメソッド
 export async function addUser(id: string, data: User) {
@@ -9,11 +10,13 @@ export async function addUser(id: string, data: User) {
     await updateDoc(docRef, {
       users: arrayUnion(data),
     })
-    return 'append user'
+    const resData = await getSchedule(id)
+    scheduleSchema.parse(resData)
+    return resData
   } catch (error) {
     console.error('データの追加中にエラーが発生しました:', error)
+    return null
   }
-  return null
 }
 
 // ユーザーを更新するメソッド 引数にドキュメントid,更新したuser,userの配列,インデックスを渡す
@@ -29,11 +32,13 @@ export async function updateUser(
     await updateDoc(docRef, {
       users: usersArray,
     })
-    return `update user ${index}`
+    const resData = await getSchedule(id)
+    scheduleSchema.parse(resData)
+    return resData
   } catch (error) {
     console.error('データの追加中にエラーが発生しました:', error)
+    return null
   }
-  return null
 }
 
 // ユーザーを削除するメソッド
@@ -45,6 +50,6 @@ export async function deleteUser(id: string, deleteUser: User) {
     return `delete user`
   } catch (error) {
     console.error('データの追加中にエラーが発生しました:', error)
+    return null
   }
-  return null
 }
