@@ -19,8 +19,8 @@ export async function addUser(id: string, data: User) {
 // ユーザーを更新するメソッド 引数にドキュメントid,更新したuser,userの配列,インデックスを渡す
 export async function updateUser(
   id: string,
-  updateUser: User,
   usersArray: User[],
+  updateUser: User,
   index: number,
 ) {
   try {
