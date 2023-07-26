@@ -10,52 +10,51 @@ import {
 import { addUser, updateUser, deleteUser } from '@/repositories/user'
 
 const insert = async () => {
-  const doc = await addSchedule(SCHEDULE)
-  // console.log('Document written with ID: ', doc.id)
+  const res = await addSchedule(SCHEDULE)
+  alert(res)
 }
 
 const get = async () => {
-  const id = 'YyyrWIL8YfRZj6oD72t4'
-  const scheduleData = await getSchedule(id)
-  // console.log(scheduleData)
+  const id = 'oP4bjUnfhQeUQCERmdaS'
+  const res = await getSchedule(id)
+  alert(res)
 }
 
 const getAll = async () => {
-  const scheduleData = await getAllSchedules()
-  // console.log(scheduleData)
+  const res = await getAllSchedules()
+  alert(res)
 }
 
 const update = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
-  await updateSchedule(id, SCHEDULE)
-  // console.log('Updated with ID: ', id)
+  const res = await updateSchedule(id, SCHEDULE)
+  alert(res)
 }
 
 const deleteS = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
   const res = await deleteSchedule(id)
-  // console.log(res)
+  alert(res)
 }
 
 const insertUser = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
-
   const doc = await addUser(id, USER)
-  // console.log(doc)
+  alert(doc)
 }
 
 const updateU = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
 
   const doc = await updateUser(id, USERS, USER, 1)
-  // console.log(doc)
+  alert(doc)
 }
 
 const deleteU = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
 
   const doc = await deleteUser(id, USER)
-  // console.log(doc)
+  alert(doc)
 }
 
 const Home: NextPage = () => {
