@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import {
   format,
   getDate,
@@ -89,10 +90,16 @@ const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
                 return (
                   <td key={getDay(date)} className='pt-1 text-center md:px-1'>
                     <button
+                      draggable
                       onClick={() => handleDateClick(date)}
-                      className={`btn btn-circle btn-outline h-10 min-h-fit w-10 min-w-fit md:btn-md ${
-                        isSelected ? 'btn-active' : ''
-                      }`}
+                      onDragEnter={(e) => {
+                        handleDateClick(date)
+                        e.preventDefault()
+                      }}
+                      className={classNames(
+                        'btn btn-circle btn-outline h-10 min-h-fit w-10 min-w-fit md:btn-md',
+                        isSelected ? 'btn-active' : '',
+                      )}
                     >
                       {getDate(date)}
                     </button>

@@ -52,7 +52,7 @@ export const USERS = [
 ] as User[]
 
 export const SCHEDULE: Schedule = {
-  id: '1',
+  id: 'acsajvYtOlf8K',
   users: USERS,
   name: '飲み会',
   memo: '出席できる日追加して下さい',
