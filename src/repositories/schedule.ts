@@ -54,7 +54,7 @@ export async function getAllSchedules() {
 }
 
 // スケジュールを更新する関数
-export async function updateSchedule(data: Schedule, id: string) {
+export async function updateSchedule(id: string, data: Schedule) {
   try {
     const docRef = await setDoc(doc(db, 'schedules', id), data)
     return docRef
