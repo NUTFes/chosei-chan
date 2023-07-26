@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { SCHEDULE, USER } from '@/constant/data'
+import { SCHEDULE, USER, USERS } from '@/constant/data'
 import {
   addSchedule,
   getAllSchedules,
@@ -7,7 +7,7 @@ import {
   updateSchedule,
   deleteSchedule,
 } from '@/repositories/schedule'
-import { addUser } from '@/repositories/user'
+import { addUser, updateUser } from '@/repositories/user'
 
 const insert = async () => {
   const doc = await addSchedule(SCHEDULE)
@@ -40,6 +40,13 @@ const insertUser = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
 
   const doc = await addUser(id, USER)
+  console.log(doc)
+}
+
+const updateU = async () => {
+  const id = 'tNp6BizMPL2uRok5TKZF'
+
+  const doc = await updateUser(id, USER, USERS, 1)
   console.log(doc)
 }
 
@@ -80,10 +87,16 @@ const Home: NextPage = () => {
       </div>
       <div className='flex min-h-screen flex-col items-center justify-center py-2'>
         <button
-          className='mt-4 w-60 rounded-full bg-green-800 px-4 py-2 font-bold text-white hover:bg-green-700'
+          className='mt-4 w-60 rounded-full bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700'
           onClick={() => insertUser()}
         >
           Insert User
+        </button>
+        <button
+          className='mt-4 w-60 rounded-full bg-secondary px-4 py-2 font-bold text-white hover:bg-secondary-focus'
+          onClick={() => updateU()}
+        >
+          Update Schedule
         </button>
       </div>
     </div>
