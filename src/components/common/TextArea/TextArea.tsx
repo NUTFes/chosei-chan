@@ -1,12 +1,19 @@
 import classNames from 'classnames'
+import { forwardRef } from 'react'
 import { TextAreaProps } from './TextArea.types'
 
-const TextArea: React.FC<TextAreaProps> = ({ bordered, ghosted }) => {
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
+  const { bordered, ghosted } = props
   const borderedClass = bordered ? 'textarea-bordered' : ''
   const ghostedClass = ghosted ? 'testarea-ghost' : ''
   return (
-    <textarea className={classNames('textarea bg-white', borderedClass, ghostedClass)} />
+    <textarea
+      ref={ref}
+      className={classNames('textarea bg-white', borderedClass, ghostedClass)}
+      {...props}
+    />
   )
-}
+})
 
+TextArea.displayName = 'TextArea'
 export default TextArea
