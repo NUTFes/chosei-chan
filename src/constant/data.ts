@@ -36,14 +36,17 @@ export const USERS = [
   {
     name: 'test3',
     memo: '今週は厳しいです',
+    availables: null,
   },
   {
     name: 'test4',
     memo: '今週が良いです',
+    availables: null,
   },
 ] as User[]
 
 export const SCHEDULE: Schedule = {
+  id: '',
   users: USERS,
   name: '飲み会',
   memo: '出席できる日追加して下さい',
@@ -53,4 +56,5 @@ export const SCHEDULE: Schedule = {
 export const USER: User = {
   name: 'テスト太郎',
   memo: 'いけません',
+  availables: null,
 }
