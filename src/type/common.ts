@@ -1,11 +1,9 @@
 export interface Available {
-  id: string
   from: number
   to: number
 }
 
 export interface User {
-  id: string
   name: string
   memo?: string
   availables?: Available[]
