@@ -1,6 +1,7 @@
 import { Button, Input } from '@/components/common'
 import { TextArea } from '@/components/common/TextArea'
 import { MainLayout } from '@/components/layout/MainLayout'
+import { Calender } from '@/components/screen'
 
 export default function Home() {
   return (
@@ -31,7 +32,7 @@ export default function Home() {
               <div className='divider md:hidden' />
             </div>
           </div>
-          <div className='flex flex-col md:w-1/2'>
+          <div className='flex w-full flex-col md:w-1/2'>
             <div className='flex flex-col gap-2'>
               <div className='flex items-center gap-4'>
                 <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>
@@ -40,7 +41,11 @@ export default function Home() {
                 <p className='text-xl font-semibold'>日付を入力</p>
               </div>
               <p className='ml-4 text-sm'>※候補日時を選択</p>
-              <div>ここにカレンダー</div>
+              <Calender
+                onChange={function (): void {
+                  throw new Error('Function not implemented.')
+                }}
+              />
             </div>
           </div>
         </div>
