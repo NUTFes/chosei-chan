@@ -10,7 +10,7 @@ export interface User {
 }
 
 export interface Schedule {
-  id: string
+  id?: string
   users?: User[]
   name: string
   memo?: string
