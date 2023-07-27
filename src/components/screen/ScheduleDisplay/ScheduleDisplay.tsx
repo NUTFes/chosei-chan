@@ -41,15 +41,22 @@ function timeCreate(schedule: Schedule): {
   return { dates, dateSchedules }
 }
 
-function countSchedules(dateSchedules: DateSchedules, users: User[]): DateSchedules {
-  users.map((user) => {
-    user.availables?.map((available) => {
-      for (let i = available.from; i < available.to; i += TimeDiv) {
-        dateSchedules[i]++
-      }
+function countSchedules(
+  dateSchedules: DateSchedules,
+  users: User[] | undefined,
+): DateSchedules {
+  if (!users) {
+    return dateSchedules
+  } else {
+    users.map((user) => {
+      user.availables?.map((available) => {
+        for (let i = available.from; i < available.to; i += TimeDiv) {
+          dateSchedules[i]++
+        }
+      })
     })
-  })
-  return dateSchedules
+    return dateSchedules
+  }
 }
 
 // TypeScriptのコード
@@ -86,7 +93,7 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
 
   return (
     <div className='overflow-x-scroll rounded-lg bg-info-content'>
-      <div className='flex p-1 md:p-2'>
+      <div className='flex justify-center p-1 md:p-2'>
         <div className='flex flex-col'>{}</div>
         {schedule.dates.map((date, index) => (
           <>
