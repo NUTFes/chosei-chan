@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
-import { ShareButton } from '@/components/common/ShareButton'
+import { useRouter } from 'next/router'
+import { ShareButton, Button } from '@/components/common'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { MemoList } from '@/components/screen/MemoList'
 import { ScheduleDisplay } from '@/components/screen/ScheduleDisplay'
@@ -8,6 +9,7 @@ import { Schedule } from '@/type/common'
 
 interface Props {
   schedule: Schedule
+  id: string
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -16,12 +18,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       schedule: scheduleRes,
+      id: id,
     },
   }
 }
 
 export default function Home(props: Props) {
   const schedule = props.schedule
+
+  const router = useRouter()
+  const createURL = props.id + `/create`
+  const toCreate = async () => {
+    await router.push(createURL) // 遷移先のURL
+  }
+
   return (
     <MainLayout>
       <div className='my-9 flex min-h-screen flex-col'>
@@ -47,6 +57,7 @@ export default function Home(props: Props) {
               </div>
               <div className='flex flex-row-reverse'>
                 <ShareButton />
+                <Button onClick={toCreate}>予定を追加</Button>
               </div>
               <div className='mx-auto flex w-full items-center justify-center'>
                 <ScheduleDisplay schedule={schedule} />
