@@ -108,13 +108,13 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
   ]
   const colors = colorArrayCreate(bgColorDefine, max)
   return (
-    <div className='overflow-scroll  rounded-lg bg-info-content'>
-      <div className='flex justify-center p-1 md:p-2'>
+    <div className='overflow-x-scroll rounded-lg'>
+      <div className='flex items-center p-1 md:p-2'>
         <div className='flex flex-col'>{}</div>
         {schedule.dates.map((date, index) => (
           <>
             <div className='flex flex-col' key={index}>
-              <p className='select-none border bg-secondary-focus px-5 text-xs tracking-wider text-white md:px-10 md:text-base'>
+              <p className='select-none border bg-secondary-focus px-5 text-sm tracking-wider text-white md:px-10 md:text-lg'>
                 {format(date, 'M/d')}
               </p>
               <div className='border'>
