@@ -16,7 +16,7 @@ const insert = async () => {
 }
 
 const get = async () => {
-  const id = 'tNp6BizMPL2uRok5TKZF'
+  const id = 'iyKnqF9XFvGkgSpzoAUx'
   const res = await getSchedule(id)
   alert(res)
 }
@@ -27,31 +27,31 @@ const getAll = async () => {
 }
 
 const update = async () => {
-  const id = 'tNp6BizMPL2uRok5TKZF'
+  const id = 'iyKnqF9XFvGkgSpzoAUx'
   const res = await updateSchedule(id, SCHEDULE)
   alert(res)
 }
 
 const deleteScheduleByRepo = async () => {
-  const id = 'tNp6BizMPL2uRok5TKZF'
+  const id = 'iyKnqF9XFvGkgSpzoAUx'
   const res = await deleteSchedule(id, SCHEDULE)
   alert(res)
 }
 
 const insertUser = async () => {
-  const id = 'VLSnokfK3LM7ibIG4GBR'
+  const id = 'iyKnqF9XFvGkgSpzoAUx'
   const res = await addUser(id, USER)
   alert(res)
 }
 
 const updateUserByRepo = async () => {
-  const id = 'VLSnokfK3LM7ibIG4GBR'
+  const id = 'iyKnqF9XFvGkgSpzoAUx'
   const res = await updateUser(id, USERS, USER, 1)
   alert(res)
 }
 
 const deleteUserByRepo = async () => {
-  const id = 'VLSnokfK3LM7ibIG4GBR'
+  const id = 'iyKnqF9XFvGkgSpzoAUx'
   const res = await deleteUser(id, USER)
   alert(res)
 }
