@@ -108,9 +108,9 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
         <div className='flex flex-col'>{}</div>
         {schedule.dates.map((date, index) => (
           <>
-            <div className='flex flex-col' key={index}>
+            <div key={index}>
               <p className='select-none border bg-secondary-focus px-5 text-sm tracking-wider text-white md:px-10 md:text-lg'>
-                {format(date, 'M/d')}
+                {format(date, 'M/d (E)')}
               </p>
               <div className='border'>
                 {newDates[index].map((time, index) => (
