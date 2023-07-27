@@ -1,12 +1,38 @@
-import { Input } from '@/components/common'
+import { useRouter } from 'next/router'
+import { useMemo } from 'react'
+import { useForm } from 'react-hook-form'
+import { Button, Input } from '@/components/common'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ScheduleInput } from '@/components/screen'
 import { USERS, SCHEDULE } from '@/constant/data'
+import { User } from '@/type/common'
 
 export default function Create() {
+  const {
+    register,
+    formState: { errors, isValid, isSubmitting },
+    handleSubmit,
+    setValue,
+    watch,
+  } = useForm<User>({
+    mode: 'onSubmit',
+  })
+
+  const watchedSchedule = watch('availables')
+  const ScheduleValid = useMemo(() => {
+    return watchedSchedule?.length !== 0
+  }, [watchedSchedule])
+
+  const router = useRouter()
+  const onSubmit = async (data: User) => {
+    // 送信処理
+    console.log(data)
+    await router.push('/schedule') // 遷移先のURL
+  }
+
   return (
     <MainLayout>
-      <div className='flex min-h-screen flex-col'>
+      <form className='flex min-h-screen flex-col' onSubmit={handleSubmit(onSubmit)}>
         <main className='grow'>
           <div className='my-20 flex flex-col items-center justify-center gap-8'>
             <div className='flex w-11/12 items-end gap-9 border-b-2 border-primary'>
@@ -30,7 +56,10 @@ export default function Create() {
                     </div>
                   </div>
                   <div className='flex w-60 flex-col'>
-                    <Input />
+                    <Input
+                      {...register('name', { required: '名前を入力してください' })}
+                    />
+                    {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                   </div>
                 </div>
                 <div className='flex items-end'>
@@ -43,7 +72,7 @@ export default function Create() {
                     </div>
                   </div>
                   <div className='flex w-60 flex-col md:w-10/12'>
-                    <Input />
+                    <Input {...register('memo')} />
                   </div>
                 </div>
               </div>
@@ -54,13 +83,24 @@ export default function Create() {
                   if (!availableDates) return
                   availableDates.forEach((date, index) => {
                     // console.log(index, date.from, date.to)
+                    setValue('availables', availableDates)
                   })
                 }}
               />
+              {!ScheduleValid && (
+                <p className='text-red-500'>カレンダーを入力してください</p>
+              )}
             </div>
+            <Button
+              type='submit'
+              disabled={!isValid || !ScheduleValid}
+              loading={isSubmitting}
+            >
+              日程を入力
+            </Button>
           </div>
         </main>
-      </div>
+      </form>
     </MainLayout>
   )
 }
