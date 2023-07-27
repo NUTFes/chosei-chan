@@ -1,26 +1,5 @@
 import { z } from 'zod'
 
-export interface Available {
-  from: number
-  to: number
-}
-
-export interface User {
-  name: string
-  memo?: string | null
-  availables?: Available[] | null
-}
-
-export interface Schedule {
-  id?: string | null
-  users?: User[] | null
-  name: string
-  memo?: string | null
-  dates: number[]
-  createdAt?: number | null
-  updatedAt?: number | null
-}
-
 export const availableSchema = z.object({
   from: z.number(),
   to: z.number(),
@@ -40,4 +19,11 @@ export const scheduleSchema = z.object({
   dates: z.array(z.number()),
   createdAt: z.number().nullable(),
   updatedAt: z.number().nullable(),
+  deletedAt: z.number().nullable(),
 })
+
+export type Available = z.infer<typeof availableSchema>
+
+export type User = z.infer<typeof userSchema>
+
+export type Schedule = z.infer<typeof scheduleSchema>
