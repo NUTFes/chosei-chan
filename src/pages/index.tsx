@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <MainLayout>
       <form
-        className='my-10 flex flex-col items-center gap-16 md:my-16'
+        className='my-10 flex flex-col items-center gap-6'
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className='m-auto flex w-4/5 flex-wrap md:flex-nowrap md:gap-16'>
