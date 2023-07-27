@@ -1,13 +1,30 @@
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Input } from '@/components/common'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ScheduleInput } from '@/components/screen'
-import { USERS, SCHEDULE } from '@/constant/data'
-import { User } from '@/type/common'
+import { getSchedule, addUser } from '@/repositories'
+import { User, Schedule, userSchema } from '@/type/common'
 
-export default function Create() {
+interface Props {
+  schedule: Schedule
+  id: string
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const id = String(context.params?.scheduleId) || ''
+  const scheduleRes = await getSchedule(id)
+  return {
+    props: {
+      schedule: scheduleRes,
+      id: id,
+    },
+  }
+}
+
+export default function Create(props: Props) {
   const {
     register,
     formState: { errors, isValid, isSubmitting },
@@ -18,6 +35,7 @@ export default function Create() {
     mode: 'onSubmit',
   })
 
+  const schedule = props.schedule
   const watchedSchedule = watch('availables')
   const ScheduleValid = useMemo(() => {
     return watchedSchedule?.length !== 0
@@ -25,10 +43,18 @@ export default function Create() {
 
   const router = useRouter()
   const onSubmit = async (data: User) => {
-    console.log(data)
-    await router.push('/schedule')
+    try {
+      userSchema.parse(data)
+      await addUser(props.id, data)
+      await router.push('/' + props.id)
+      return null
+    } catch (error) {
+      console.error('An error occurred:', error)
+      return null
+    }
   }
 
+  const user: User = { name: '', memo: '', availables: null }
   return (
     <MainLayout>
       <form className='flex min-h-screen flex-col' onSubmit={handleSubmit(onSubmit)}>
@@ -40,8 +66,11 @@ export default function Create() {
                   イベント名
                 </p>
               </div>
-              <p className='break-all text-xl'>{SCHEDULE.name}</p>
-              <p className='whitespace-nowrap text-sm'>参加{USERS.length}人</p>
+              <p className='break-all text-xl'>{schedule.name}</p>
+              <p className='whitespace-nowrap text-sm'>
+                参加{(schedule.users && schedule.users.length) || (!schedule.users && 0)}
+                人
+              </p>
             </div>
             <div className='flex w-11/12 flex-col gap-8'>
               <div className='flex flex-col gap-4 md:mx-20'>
@@ -74,8 +103,8 @@ export default function Create() {
                 </div>
               </div>
               <ScheduleInput
-                schedule={SCHEDULE}
-                editUser={USERS[0]}
+                schedule={schedule}
+                editUser={user}
                 onChange={(availableDates) => {
                   if (!availableDates) return
                   availableDates.forEach(() => {
