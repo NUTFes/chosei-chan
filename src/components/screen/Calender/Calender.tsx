@@ -58,6 +58,7 @@ const Calender: React.FC<CalenderProps> = ({ onChange }) => {
     <div className='flex-col'>
       <div className='flex items-center justify-center text-3xl'>
         <button
+          type='button'
           className='btn btn-ghost mr-auto p-2 text-lg md:ml-auto md:text-xl'
           onClick={handlePreviousMonth}
         >
@@ -65,6 +66,7 @@ const Calender: React.FC<CalenderProps> = ({ onChange }) => {
         </button>
         {format(targetMonth, 'y年M月')}
         <button
+          type='button'
           className='btn btn-ghost ml-auto p-2 text-lg md:mr-auto md:text-xl'
           onClick={handleNextMonth}
         >
