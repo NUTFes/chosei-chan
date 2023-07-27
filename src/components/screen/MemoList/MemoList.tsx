@@ -15,7 +15,9 @@ const MemoList: React.FC<MemoListProps> = ({ users }) => {
               {user.name}
             </p>
             <div className='chat-bubble chat-bubble-secondary my-auto'>
-              <p className='text-xs md:text-sm overflow-auto break-keep whitespace-nowrap hidden-scrollbar text-white'>{user.memo}</p>
+              <p className='text-xs md:text-sm overflow-auto break-keep whitespace-nowrap hidden-scrollbar text-white'>
+                {user.memo}
+              </p>
             </div>
           </>
         ))}
