@@ -1,6 +1,7 @@
 import { ShareButton } from '@/components/common/ShareButton'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { MemoList } from '@/components/screen/MemoList'
+import { ScheduleDisplay } from '@/components/screen/ScheduleDisplay'
 import { getSchedule } from '@/repositories'
 import { Schedule } from '@/type/common'
 
@@ -22,10 +23,10 @@ export default function Home(props: Props) {
   const schedule = props.schedule
   return (
     <MainLayout>
-      <div className='flex min-h-screen flex-col'>
+      <div className='my-9 flex min-h-screen flex-col'>
         <main className='grow'>
-          <div className='my-20 flex flex-col items-center justify-center gap-8'>
-            <div className='flex w-11/12 items-end gap-4 border-b-2 border-primary'>
+          <div className='flex flex-col items-center justify-center gap-6'>
+            <div className='flex w-11/12 items-end gap-5 border-b-2 border-primary'>
               <div className='bg-primary p-2'>
                 <p className='whitespace-nowrap text-xl font-bold text-white'>
                   イベント名
@@ -44,11 +45,11 @@ export default function Home(props: Props) {
               <div className='flex flex-row-reverse'>
                 <ShareButton />
               </div>
-              <div className='h-40 items-center justify-center rounded-lg bg-primary text-white'>
-                スケジュール
+              <div className='mx-auto w-full items-center'>
+                <ScheduleDisplay schedule={schedule} />
               </div>
             </div>
-            <div className='flex w-full items-center justify-center'>
+            <div className='flex items-center justify-center'>
               <MemoList users={schedule.users} />
             </div>
           </div>

@@ -109,7 +109,7 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
         {schedule.dates.map((date, index) => (
           <>
             <div key={index}>
-              <p className='select-none border bg-secondary-focus px-5 text-sm tracking-wider text-white md:px-10 md:text-lg'>
+              <p className='select-none whitespace-nowrap border bg-secondary-focus px-4 text-sm tracking-wider text-white md:px-10 md:text-lg'>
                 {format(date, 'M/d (E)')}
               </p>
               <div className='border'>
