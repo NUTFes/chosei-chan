@@ -3,26 +3,26 @@ import { Available, Schedule, User } from '../type/common'
 export const AVAILABLES1 = [
   {
     id: '1',
-    from: 1690081200,
-    to: 1690084800,
+    from: 1690081200000,
+    to: 1690084800000,
   },
   {
     id: '2',
-    from: 1690174800,
-    to: 1690182000,
+    from: 1690174800000,
+    to: 1690182000000,
   },
 ] as Available[]
 
 const AVAILABLES2 = [
   {
     id: '1',
-    from: 1690070400,
-    to: 1690077600,
+    from: 1690070400000,
+    to: 1690077600000,
   },
   {
     id: '2',
-    from: 1690196400,
-    to: 1690210800,
+    from: 1690196400000,
+    to: 1690210800000,
   },
 ] as Available[]
 
@@ -43,6 +43,7 @@ export const USERS = [
     id: '3',
     name: 'test3',
     memo: '今週は厳しいです',
+    availables: AVAILABLES2,
   },
   {
     id: '4',
@@ -56,5 +57,8 @@ export const SCHEDULE: Schedule = {
   users: USERS,
   name: '飲み会',
   memo: '出席できる日追加して下さい',
-  dates: [1690038000, 1690124400, 1690210800],
+  dates: [
+    1690038000000, 1690124400000, 1690210800000, 1690383600000, 1690470000000,
+    1690556400000, 1690556400000, 1690556400000, 1690556400000,
+  ],
 }

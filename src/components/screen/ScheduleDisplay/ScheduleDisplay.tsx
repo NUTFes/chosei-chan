@@ -1,10 +1,11 @@
 import classNames from 'classnames'
+import { format } from 'date-fns'
 import { ScheduleDisplayProps } from './ScheduleDisplay.types'
 import { Schedule, User } from '@/type/common'
 
 const sampling = 30
 const divNum = 24 * (60 / sampling)
-const TimeDiv = 86400 / divNum
+const TimeDiv = 86400000 / divNum
 
 interface DateSchedules {
   [time: number]: number
@@ -23,11 +24,6 @@ function findMaxValue(dictionary: DateSchedules): number | undefined {
   return maxValue
 }
 
-function unixToDate(unixtime: number): string {
-  const dateTime = new Date(unixtime * 1000)
-  return dateTime.toLocaleDateString()
-}
-
 function unixToTime(unixtime: number): string {
   const dateTime = new Date(unixtime * 1000)
   return dateTime.toLocaleTimeString()
@@ -42,7 +38,7 @@ function timeCreate(schedule: Schedule): {
   let oneDay: number[] = []
   const dateSchedules: DateSchedules = {}
   schedule.dates.map((date) => {
-    dayEnd = date + 86400
+    dayEnd = date + 86400000
     for (let i = date; i < dayEnd; i = i + TimeDiv) {
       oneDay.push(i)
       dateSchedules[i] = 0
@@ -111,16 +107,15 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
     'bg-fuchsia-600',
   ]
   const colors = colorArrayCreate(bgColorDefine, max)
-  console.log(colors)
   return (
-    <div className='overflow-x-scroll rounded-lg bg-info-content'>
+    <div className='overflow-scroll  rounded-lg bg-info-content'>
       <div className='flex justify-center p-1 md:p-2'>
         <div className='flex flex-col'>{}</div>
         {schedule.dates.map((date, index) => (
           <>
             <div className='flex flex-col' key={index}>
-              <p className='select-none border bg-secondary-focus p-1 text-xs tracking-wider text-white md:px-5 md:text-base'>
-                {unixToDate(date)}
+              <p className='select-none border bg-secondary-focus px-5 text-xs tracking-wider text-white md:px-10 md:text-base'>
+                {format(date, 'M/d')}
               </p>
               <div className='border'>
                 {newDates[index].map((time, index) => (
@@ -133,11 +128,11 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
                         className={classNames(
                           { hidden: !(index % 2 == 0) },
                           { 'text-lime-50': newDateSchedules[time] },
-                          { 'text-zinc-300': !newDateSchedules[time] },
-                          'text-xs select-none align-top',
+                          { 'text-gray-300': !newDateSchedules[time] },
+                          'text-xs select-none',
                         )}
                       >
-                        {unixToTime(time).slice(0, -3)}
+                        {format(time, 'HH:mm')}
                       </p>
                     </div>
                     <hr className={classNames({ hidden: index % 2 == 0 })}></hr>
