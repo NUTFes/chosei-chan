@@ -26,7 +26,7 @@ export default function Home() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className='m-auto flex w-4/5 flex-wrap md:flex-nowrap md:gap-16'>
-          <div className='flex flex-col md:w-1/2'>
+          <div className='flex w-full flex-col md:w-1/2'>
             <div className='flex flex-col gap-2'>
               <div className='flex items-center gap-4'>
                 <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>
