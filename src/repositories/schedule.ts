@@ -39,9 +39,7 @@ export async function addSchedule(data: Schedule) {
     const currentUnixTime = getCurrentUnixTime()
     const submitData = { ...data, createdAt: currentUnixTime, updatedAt: currentUnixTime }
     const docRef = await addDoc(collection(db, 'schedules'), submitData)
-    const resData = await getSchedule(docRef.id)
-    scheduleSchema.parse(resData)
-    return resData
+    return String(docRef.id)
   } catch (error) {
     console.error('An error occurred:', error)
     return null
