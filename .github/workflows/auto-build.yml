@@ -1,9 +1,8 @@
 name: Build Test
 on:
- push:
-   branches-ignore:
-     - main
-     - development
+  push:
+    branches:
+      - develop
 
 jobs:
  build:

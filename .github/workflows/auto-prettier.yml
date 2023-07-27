@@ -2,8 +2,9 @@ name: Prettier
 
 on:
   push:
-    branches:
+    branches-ignore:
       - develop
+      - main
 
 env:
   FILE_PATTERN: "src/**/*.{ts,tsx,js,jsx}"

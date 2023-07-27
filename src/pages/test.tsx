@@ -1,0 +1,47 @@
+import type { NextPage } from 'next'
+import { SCHEDULE } from '@/constant/data'
+import { addSchedule, getAllSchedules, getSchedule } from '@/repositories/schedule'
+
+const insert = async () => {
+  const doc = await addSchedule(SCHEDULE)
+  // console.log('Document written with ID: ', doc.id)
+}
+
+const get = async () => {
+  await getSchedule('dfpCkRahuP')
+  const scheduleData = await getSchedule('dfpCkRahuP')
+  // console.log(scheduleData)
+}
+
+const getAll = async () => {
+  await getAllSchedules()
+  const scheduleData = await getAllSchedules()
+  // console.log(scheduleData)
+}
+
+const Home: NextPage = () => {
+  return (
+    <div className='flex min-h-screen flex-col items-center justify-center py-2'>
+      <button
+        className='mt-4 w-60 rounded-full bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700'
+        onClick={() => insert()}
+      >
+        Insert Schedule
+      </button>
+      <button
+        className='mt-4 w-60 rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700'
+        onClick={() => get()}
+      >
+        Get Schedule
+      </button>
+      <button
+        className='mt-4 w-60 rounded-full bg-primary px-4 py-2 font-bold text-white hover:bg-primary-focus'
+        onClick={() => getAll()}
+      >
+        Get All Schedules
+      </button>
+    </div>
+  )
+}
+
+export default Home
