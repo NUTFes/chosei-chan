@@ -29,7 +29,7 @@ export default function Home(props: Props) {
   const router = useRouter()
   const createURL = props.id + `/create`
   const toCreate = async () => {
-    await router.push(createURL) // 遷移先のURL
+    await router.push(createURL)
   }
 
   return (
@@ -48,6 +48,16 @@ export default function Home(props: Props) {
                 参加{(schedule.users && schedule.users.length) || (!schedule.users && 0)}
                 人
               </p>
+              <div className='hidden-scrollbar flex gap-1 overflow-x-auto'>
+                {schedule.users &&
+                  schedule.users.map((user) => (
+                    <>
+                      <p className='badge badge-secondary w-full whitespace-nowrap text-white'>
+                        {user.name}
+                      </p>
+                    </>
+                  ))}
+              </div>
             </div>
             <div className='flex w-11/12 flex-col gap-4'>
               <div className='flex items-end gap-4 border-b-2 border-primary'>
