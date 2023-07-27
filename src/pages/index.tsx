@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
@@ -95,9 +96,9 @@ export default function Home() {
                   setValue('dates', selectedDate)
                 }}
               />
-              {!calenderValid && (
-                <p className='text-red-500'>カレンダーを入力してください</p>
-              )}
+              <p className={classNames({ 'opacity-0': calenderValid }, 'text-red-500')}>
+                カレンダーを入力してください
+              </p>
             </div>
           </div>
         </div>
