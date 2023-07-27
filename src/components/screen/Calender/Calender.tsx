@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import {
   format,
   getDate,
@@ -11,15 +12,15 @@ import {
   startOfMonth,
   endOfMonth,
 } from 'date-fns'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 import { CalenderProps } from './Calender.types'
 
-const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
+const Calender: React.FC<CalenderProps> = ({ onChange }) => {
   const [targetMonth, setTargetMonth] = useState(new Date())
   const [selectedDates, setSelectedDates] = useState<number[]>([])
 
-  const getCalendarArray = (date: Date) => {
+  const getCalenderArray = (date: Date) => {
     const sundays = eachWeekOfInterval({
       start: startOfMonth(date),
       end: endOfMonth(date),
@@ -28,7 +29,7 @@ const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
       eachDayOfInterval({ start: sunday, end: endOfWeek(sunday) }),
     )
   }
-  const calendar = getCalendarArray(targetMonth)
+  const calender = getCalenderArray(targetMonth)
 
   const handleDateClick = (date: Date) => {
     const unixTime = date.getTime()
@@ -49,44 +50,59 @@ const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
     setTargetMonth((current) => addMonths(current, 1))
   }
 
-  const handleSubmit = () => {
+  useEffect(() => {
     onChange(selectedDates)
-  }
+  }, [selectedDates])
 
   return (
-    <div className='mx-auto my-2 grid w-2/5 '>
-      <div className='my-2 flex items-center justify-center text-3xl'>
-        <button className='btn btn-ghost mr-auto text-xl' onClick={handlePreviousMonth}>
+    <div className='flex-col'>
+      <div className='flex items-center justify-center text-3xl'>
+        <button
+          type='button'
+          className='btn btn-ghost mr-auto p-2 text-lg md:ml-auto md:text-xl'
+          onClick={handlePreviousMonth}
+        >
           <MdArrowBackIosNew /> {getMonth(subMonths(targetMonth, 1)) + 1}月
         </button>
         {format(targetMonth, 'y年M月')}
-        <button className='btn btn-ghost ml-auto text-xl' onClick={handleNextMonth}>
+        <button
+          type='button'
+          className='btn btn-ghost ml-auto p-2 text-lg md:mr-auto md:text-xl'
+          onClick={handleNextMonth}
+        >
           {getMonth(addMonths(targetMonth, 1)) + 1}月 <MdArrowForwardIos />
         </button>
       </div>
-      <table>
+      <table className='mx-auto'>
         <thead>
           <tr>
             {['日', '月', '火', '水', '木', '金', '土'].map((day) => (
-              <th key={day} className='py-2'>
+              <th key={day} className='md:p-2 md:text-lg'>
                 {day}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {calendar.map((weekRow, rowNum) => (
+          {calender.map((weekRow, rowNum) => (
             <tr key={rowNum}>
               {weekRow.map((date) => {
                 const unixTime = date.getTime()
                 const isSelected = selectedDates.includes(unixTime)
                 return (
-                  <td key={getDay(date)} className='py-1 text-center'>
+                  <td key={getDay(date)} className='pt-1 text-center md:px-1'>
                     <button
+                      type='button'
+                      draggable
                       onClick={() => handleDateClick(date)}
-                      className={`btn btn-circle btn-outline ${
-                        isSelected ? 'btn-active' : ''
-                      }`}
+                      onDragEnter={(e) => {
+                        handleDateClick(date)
+                        e.preventDefault()
+                      }}
+                      className={classNames(
+                        'btn btn-circle btn-outline h-10 min-h-fit w-10 min-w-fit md:btn-md',
+                        isSelected ? 'btn-active' : '',
+                      )}
                     >
                       {getDate(date)}
                     </button>
@@ -97,11 +113,8 @@ const Calendar: React.FC<CalenderProps> = ({ onChange }) => {
           ))}
         </tbody>
       </table>
-      <button onClick={handleSubmit} className='btn btn-primary mt-4'>
-        送信
-      </button>
     </div>
   )
 }
 
-export default Calendar
+export default Calender
