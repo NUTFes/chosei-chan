@@ -5,7 +5,8 @@ import {
   getDocs,
   collection,
   setDoc,
-  deleteDoc,
+  query,
+  where,
 } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { Schedule, scheduleSchema } from '@/type/common'
@@ -20,6 +21,9 @@ export const getCurrentUnixTime = (): number => {
 export async function getSchedule(id: string) {
   try {
     const scheduleRes = await getDoc(doc(db, 'schedules', id))
+    if (scheduleRes.data()?.deletedAt) {
+      return null
+    }
     scheduleSchema.parse(scheduleRes.data())
     const resData = scheduleRes.data()
     return resData
@@ -47,7 +51,7 @@ export async function addSchedule(data: Schedule) {
 // スケジュールを全取得する関数
 export async function getAllSchedules() {
   try {
-    const docRefs = collection(db, 'schedules')
+    const docRefs = query(collection(db, 'schedules'), where('deletedAt', '==', null))
     const querySnapshot = await getDocs(docRefs)
     const resDates = querySnapshot.docs.map((doc) => {
       scheduleSchema.parse(doc.data())
@@ -76,9 +80,11 @@ export async function updateSchedule(id: string, data: Schedule) {
 }
 
 // スケジュールを削除する関数
-export async function deleteSchedule(id: string) {
+export async function deleteSchedule(id: string, data: Schedule) {
   try {
-    await deleteDoc(doc(db, 'schedules', id))
+    const currentUnixTime = getCurrentUnixTime()
+    const submitData = { ...data, deletedAt: currentUnixTime }
+    await setDoc(doc(db, 'schedules', id), submitData)
     return 'success'
   } catch (error) {
     console.error('An error occurred:', error)

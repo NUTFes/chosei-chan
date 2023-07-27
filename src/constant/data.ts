@@ -53,6 +53,7 @@ export const SCHEDULE: Schedule = {
   dates: [1690038000000, 1690124400000, 1690210800000],
   createdAt: null,
   updatedAt: null,
+  deletedAt: null,
 }
 
 export const USER: User = {

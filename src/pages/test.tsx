@@ -5,8 +5,10 @@ import {
   getSchedule,
   updateSchedule,
   deleteSchedule,
-} from '@/repositories/schedule'
-import { addUser, updateUser, deleteUser } from '@/repositories/user'
+  addUser,
+  updateUser,
+  deleteUser,
+} from '@/repositories'
 
 const insert = async () => {
   const res = await addSchedule(SCHEDULE)
@@ -14,27 +16,25 @@ const insert = async () => {
 }
 
 const get = async () => {
-  const id = 'ugcvJL0cq9CK2u5BwVDA'
+  const id = 'tNp6BizMPL2uRok5TKZF'
   const res = await getSchedule(id)
   alert(res)
-  console.log(res)
 }
 
 const getAll = async () => {
   const res = await getAllSchedules()
   alert(res)
-  console.log(res)
 }
 
 const update = async () => {
-  const id = 'VLSnokfK3LM7ibIG4GBR'
+  const id = 'tNp6BizMPL2uRok5TKZF'
   const res = await updateSchedule(id, SCHEDULE)
   alert(res)
 }
 
-const deleteS = async () => {
+const deleteScheduleByRepo = async () => {
   const id = 'tNp6BizMPL2uRok5TKZF'
-  const res = await deleteSchedule(id)
+  const res = await deleteSchedule(id, SCHEDULE)
   alert(res)
 }
 
@@ -87,7 +87,7 @@ const Home = () => {
           </button>
           <button
             className='mt-4 w-60 rounded-full bg-accent px-4 py-2 font-bold text-white hover:bg-accent-focus'
-            onClick={() => deleteS()}
+            onClick={() => deleteScheduleByRepo()}
           >
             Delete Schedule
           </button>
