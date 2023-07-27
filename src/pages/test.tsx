@@ -44,13 +44,13 @@ const insertUser = async () => {
   alert(res)
 }
 
-const updateU = async () => {
+const updateUserByRepo = async () => {
   const id = 'VLSnokfK3LM7ibIG4GBR'
   const res = await updateUser(id, USERS, USER, 1)
   alert(res)
 }
 
-const deleteU = async () => {
+const deleteUserByRepo = async () => {
   const id = 'VLSnokfK3LM7ibIG4GBR'
   const res = await deleteUser(id, USER)
   alert(res)
@@ -101,24 +101,18 @@ const Home = () => {
           </button>
           <button
             className='mt-4 w-60 rounded-full bg-secondary px-4 py-2 font-bold text-white hover:bg-secondary-focus'
-            onClick={() => updateU()}
+            onClick={() => updateUserByRepo()}
           >
             Update User
           </button>
           <button
             className='mt-4 w-60 rounded-full bg-accent px-4 py-2 font-bold text-white hover:bg-accent-focus'
-            onClick={() => deleteU()}
+            onClick={() => deleteUserByRepo()}
           >
             Delete User
           </button>
         </div>
       </div>
-      {/* <div className='flex flex-col items-center justify-center'>
-        <p>データ</p>
-        <p>{schedule.name}</p>
-        <p>{schedule.memo}</p>
-        {schedule.users?.map((user) => <p key={user.name}>{user.name}</p>)}
-      </div> */}
     </>
   )
 }
