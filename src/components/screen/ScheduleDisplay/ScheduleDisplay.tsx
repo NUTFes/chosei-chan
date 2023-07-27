@@ -47,7 +47,7 @@ function timeCreate(schedule: Schedule): {
 
 function countSchedules(
   dateSchedules: DateSchedules,
-  users: User[] | undefined,
+  users: User[] | null,
 ): DateSchedules {
   if (!users) {
     return dateSchedules
@@ -65,7 +65,7 @@ function countSchedules(
 
 function colorArrayCreate(colors: string[], max: number | undefined): string[] {
   if (!max) {
-    return []
+    return ['bg-white']
   }
   const newColors: string[] = []
   const divNumber: number = colors.length / (max + 1)
@@ -90,6 +90,7 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
   const result = timeCreate(schedule)
   const newDates: number[][] = result.dates
   const dateSchedule: DateSchedules = result.dateSchedules
+
   const newDateSchedules = countSchedules(dateSchedule, schedule.users)
 
   const max = findMaxValue(newDateSchedules)
@@ -102,6 +103,7 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
     'bg-fuchsia-600',
   ]
   const colors = colorArrayCreate(bgColorDefine, max)
+
   return (
     <div className='overflow-x-scroll rounded-lg'>
       <div className='flex items-center p-1 md:p-2'>
@@ -109,7 +111,8 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
         {schedule.dates.map((date, index) => (
           <>
             <div key={index}>
-              <p className='select-none border bg-secondary-focus px-5 text-sm tracking-wider text-white md:px-10 md:text-lg'>                {format(date, 'M/d (E)')}
+              <p className='select-none whitespace-nowrap border bg-secondary-focus px-4 text-sm tracking-wider text-white md:px-10 md:text-lg'>
+                {format(date, 'M/d (E)')}
               </p>
               <div className='border'>
                 {newDates[index].map((time, index) => (
