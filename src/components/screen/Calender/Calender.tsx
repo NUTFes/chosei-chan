@@ -58,14 +58,14 @@ const Calender: React.FC<CalenderProps> = ({ onChange }) => {
     <div className='flex-col'>
       <div className='flex items-center justify-center text-3xl'>
         <button
-          className='btn btn-ghost mr-auto p-0 text-lg md:ml-auto md:text-xl'
+          className='btn btn-ghost mr-auto p-2 text-lg md:ml-auto md:text-xl'
           onClick={handlePreviousMonth}
         >
           <MdArrowBackIosNew /> {getMonth(subMonths(targetMonth, 1)) + 1}月
         </button>
         {format(targetMonth, 'y年M月')}
         <button
-          className='btn btn-ghost ml-auto p-0 text-lg md:mr-auto md:text-xl'
+          className='btn btn-ghost ml-auto p-2 text-lg md:mr-auto md:text-xl'
           onClick={handleNextMonth}
         >
           {getMonth(addMonths(targetMonth, 1)) + 1}月 <MdArrowForwardIos />
