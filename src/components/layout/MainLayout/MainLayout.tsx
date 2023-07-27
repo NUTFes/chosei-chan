@@ -9,7 +9,7 @@ const MainLayout = (props: Props) => {
   return (
     <div className='flex min-h-screen flex-col'>
       <Header />
-      <div>{props.children}</div>
+      <div className='flex-1'>{props.children}</div>
       <Footer />
     </div>
   )
