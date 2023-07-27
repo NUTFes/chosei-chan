@@ -9,7 +9,7 @@ interface Props {
 }
 
 export async function getServerSideProps() {
-  const id = 'B1VGj0TktsN1TlvNsM7H'
+  const id = 'DKT0UR75aWbHdNBaqesU'
   const scheduleRes = await getSchedule(id)
   return {
     props: {
@@ -32,7 +32,7 @@ export default function Home(props: Props) {
                 </p>
               </div>
               <p className='break-all text-xl'>{schedule.name}</p>
-              <p className='whitespace-nowrap text-sm'>参加{schedule.users.length}人</p>
+              <p className='whitespace-nowrap text-sm'>参加{schedule.users?.length}人</p>
             </div>
             <div className='flex w-11/12 flex-col gap-4'>
               <div className='flex items-end gap-4 border-b-2 border-primary'>

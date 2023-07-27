@@ -8,8 +8,8 @@ const MemoList: React.FC<MemoListProps> = ({ users }) => {
     })
 
   return (
-    <div className='w-full gap-10 rounded-lg bg-white p-4 md:p-8'>
-      <p className='text-3xl'>メモ欄</p>
+    <div className='w-full gap-10 rounded-lg bg-white p-4 md:w-4/5 md:p-8'>
+      <p className='text-xl'>メモ欄</p>
       <div className='divider' />
       <div className='chat chat-start items-end gap-4'>
         {filterUsers &&
