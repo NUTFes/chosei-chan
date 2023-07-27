@@ -5,7 +5,8 @@ import { Button, Input } from '@/components/common'
 import { TextArea } from '@/components/common/TextArea'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Calender } from '@/components/screen'
-import { Schedule } from '@/type/common'
+import { addSchedule } from '@/repositories'
+import { Schedule, scheduleSchema } from '@/type/common'
 
 export default function Home() {
   const {
@@ -26,8 +27,24 @@ export default function Home() {
   const router = useRouter()
   const onSubmit = async (data: Schedule) => {
     // 送信処理
-    console.log(data)
-    await router.push('/schedule') // 遷移先のURL
+    try {
+      const submitData: Schedule = {
+        ...data,
+        deletedAt: null,
+        id: '',
+        users: null,
+        createdAt: null,
+        updatedAt: null,
+      }
+      scheduleSchema.parse(submitData)
+      const res = await addSchedule(submitData)
+      const url = String(res)
+      await router.push(url) // 遷移先のURL
+      return null
+    } catch (error) {
+      console.error('An error occurred:', error)
+      return null
+    }
   }
 
   return (
