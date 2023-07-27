@@ -25,9 +25,8 @@ export default function Create() {
 
   const router = useRouter()
   const onSubmit = async (data: User) => {
-    // 送信処理
     console.log(data)
-    await router.push('/schedule') // 遷移先のURL
+    await router.push('/schedule')
   }
 
   return (
@@ -48,7 +47,6 @@ export default function Create() {
               <div className='flex flex-col gap-4 md:mx-20'>
                 <div className='flex items-end'>
                   <div className='mr-4 flex w-20 justify-end md:w-24'>
-                    {/* <div className='h-12 bg-primary p-2'> */}
                     <div className='flex h-12 items-center justify-center rounded-full bg-primary p-3'>
                       <p className='whitespace-nowrap font-bold text-white md:text-xl'>
                         名前
@@ -64,7 +62,6 @@ export default function Create() {
                 </div>
                 <div className='flex items-end'>
                   <div className='mr-4 flex w-20 justify-end md:w-24'>
-                    {/* <div className='h-12 bg-primary p-2'> */}
                     <div className='flex h-12 items-center justify-center rounded-full bg-primary p-3'>
                       <p className='whitespace-nowrap font-bold text-white md:text-xl'>
                         メモ欄
@@ -81,8 +78,7 @@ export default function Create() {
                 editUser={USERS[0]}
                 onChange={(availableDates) => {
                   if (!availableDates) return
-                  availableDates.forEach((date, index) => {
-                    // console.log(index, date.from, date.to)
+                  availableDates.forEach(() => {
                     setValue('availables', availableDates)
                   })
                 }}
