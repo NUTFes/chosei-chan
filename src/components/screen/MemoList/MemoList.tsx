@@ -1,26 +1,30 @@
 import { MemoListProps } from './MemoList.types'
 
 const MemoList: React.FC<MemoListProps> = ({ users }) => {
-  const filterUsers = users.filter((user) => {
-    return user.memo
-  })
+  const filterUsers =
+    users &&
+    users.filter((user) => {
+      return user.memo
+    })
+
   return (
-    <div className='w-full gap-10 rounded-lg bg-white p-4 md:p-8'>
-      <p className='text-3xl'>メモ欄</p>
+    <div className='w-full gap-10 rounded-lg bg-white p-4 md:w-4/5 md:p-8'>
+      <p className='text-xl'>メモ欄</p>
       <div className='divider' />
       <div className='chat chat-start items-end gap-4'>
-        {filterUsers.map((user) => (
-          <>
-            <p className='md:ml-4 rounded-2xl bg-primary p-3 text-lg text-white'>
-              {user.name}
-            </p>
-            <div className='chat-bubble chat-bubble-secondary my-auto'>
-              <p className='text-xs md:text-sm overflow-auto break-keep whitespace-nowrap hidden-scrollbar text-white'>
-                {user.memo}
+        {filterUsers &&
+          filterUsers.map((user) => (
+            <>
+              <p className='rounded-2xl bg-primary p-3 text-lg text-white md:ml-4'>
+                {user.name}
               </p>
-            </div>
-          </>
-        ))}
+              <div className='chat-bubble chat-bubble-secondary my-auto'>
+                <p className='hidden-scrollbar overflow-auto whitespace-nowrap break-keep text-xs text-white md:text-sm'>
+                  {user.memo}
+                </p>
+              </div>
+            </>
+          ))}
       </div>
     </div>
   )
