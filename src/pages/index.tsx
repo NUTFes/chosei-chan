@@ -45,7 +45,7 @@ export default function Home() {
               <Input
                 {...register('name', { required: 'イベント名を入力してください' })}
               />
-              {errors.name && <span className='text-red-500'>{errors.name.message}</span>}
+              {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
             </div>
             <div className='divider' />
             <div className='flex flex-col gap-2'>
