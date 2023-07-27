@@ -12,7 +12,7 @@ import { Schedule, scheduleSchema } from '@/type/common'
 
 export const getCurrentUnixTime = (): number => {
   const now = new Date()
-  const unixTime = Math.floor(now.getTime() / 1000)
+  const unixTime = now.getTime()
   return unixTime
 }
 
