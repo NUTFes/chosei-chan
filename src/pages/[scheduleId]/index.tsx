@@ -45,7 +45,8 @@ export default function Home(props: Props) {
               </div>
               <p className='break-all text-2xl'>{schedule.name}</p>
               <p className='whitespace-nowrap text-base'>
-                参加{schedule.users?.length}人
+                参加{(schedule.users && schedule.users.length) || (!schedule.users && 0)}
+                人
               </p>
             </div>
             <div className='flex w-11/12 flex-col gap-4'>
