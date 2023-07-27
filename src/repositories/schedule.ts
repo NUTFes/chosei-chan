@@ -1,46 +1,93 @@
-import { doc, addDoc, getDoc, getDocs, collection } from 'firebase/firestore'
+import {
+  doc,
+  addDoc,
+  getDoc,
+  getDocs,
+  collection,
+  setDoc,
+  query,
+  where,
+} from 'firebase/firestore'
 import { db } from '../lib/firebase'
-import { Schedule } from '@/type/common'
+import { Schedule, scheduleSchema } from '@/type/common'
 
-// スケジュールを追加する関数
-export async function addSchedule(data: Schedule) {
-  try {
-    const docRef = await addDoc(collection(db, 'schedules'), data)
-    return docRef
-  } catch (error) {
-    console.error('データの追加中にエラーが発生しました:', error)
-  }
-  return null
+export const getCurrentUnixTime = (): number => {
+  const now = new Date()
+  const unixTime = now.getTime()
+  return unixTime
 }
 
 // スケジュールを取得する関数
 export async function getSchedule(id: string) {
   try {
     const scheduleRes = await getDoc(doc(db, 'schedules', id))
-    if (scheduleRes.exists()) {
-      return scheduleRes.data()
-    } else {
+    if (scheduleRes.data()?.deletedAt) {
       return null
     }
+    scheduleSchema.parse(scheduleRes.data())
+    const resData = scheduleRes.data()
+    return resData
   } catch (error) {
-    console.error('データの取得中にエラーが発生しました:', error)
+    console.error('An error occurred:', error)
+    return null
   }
-  return null
+}
+
+// スケジュールを追加する関数
+export async function addSchedule(data: Schedule) {
+  try {
+    const currentUnixTime = getCurrentUnixTime()
+    const submitData = { ...data, createdAt: currentUnixTime, updatedAt: currentUnixTime }
+    const docRef = await addDoc(collection(db, 'schedules'), submitData)
+    const resData = await getSchedule(docRef.id)
+    scheduleSchema.parse(resData)
+    return resData
+  } catch (error) {
+    console.error('An error occurred:', error)
+    return null
+  }
 }
 
 // スケジュールを全取得する関数
 export async function getAllSchedules() {
   try {
-    const docRefs = collection(db, 'schedules')
-
+    const docRefs = query(collection(db, 'schedules'), where('deletedAt', '==', null))
     const querySnapshot = await getDocs(docRefs)
-    const documents = querySnapshot.docs.map((doc) => {
+    const resDates = querySnapshot.docs.map((doc) => {
+      scheduleSchema.parse(doc.data())
       return { id: doc.id, ...doc.data() }
     })
-
-    return documents
+    return resDates
   } catch (error) {
-    console.error('データの取得中にエラーが発生しました:', error)
+    console.error('An error occurred:', error)
+    return null
   }
-  return null
+}
+
+// スケジュールを更新する関数
+export async function updateSchedule(id: string, data: Schedule) {
+  try {
+    const currentUnixTime = getCurrentUnixTime()
+    const submitData = { ...data, updatedAt: currentUnixTime }
+    await setDoc(doc(db, 'schedules', id), submitData)
+    const resData = await getSchedule(id)
+    scheduleSchema.parse(resData)
+    return resData
+  } catch (error) {
+    console.error('An error occurred:', error)
+    return null
+  }
+}
+
+// スケジュールを削除する関数
+export async function deleteSchedule(id: string, data: Schedule) {
+  try {
+    const currentUnixTime = getCurrentUnixTime()
+    const submitData = { ...data, deletedAt: currentUnixTime }
+    await setDoc(doc(db, 'schedules', id), submitData)
+    return 'success'
+  } catch (error) {
+    console.error('An error occurred:', error)
+    return null
+  }
 }
