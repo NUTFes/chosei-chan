@@ -7,10 +7,9 @@ interface Props {
 
 const MainLayout = (props: Props) => {
   return (
-    <div>
+    <div className='flex min-h-screen flex-col'>
       <Header />
       <div>{props.children}</div>
-      
       <Footer />
     </div>
   )
