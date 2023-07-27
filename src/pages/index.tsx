@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Input } from '@/components/common'
 import { TextArea } from '@/components/common/TextArea'
@@ -11,9 +12,15 @@ export default function Home() {
     formState: { errors },
     handleSubmit,
     setValue,
+    watch,
   } = useForm<Schedule>({
     mode: 'onSubmit',
   })
+
+  const watchedCalender = watch('dates')
+  const calenderValid = useMemo(() => {
+    return watchedCalender?.length !== 0
+  }, [watchedCalender])
 
   const onSubmit = (data: Schedule) => {
     console.log(data)
@@ -67,6 +74,9 @@ export default function Home() {
                   setValue('dates', selectedDate)
                 }}
               />
+              {!calenderValid && (
+                <p className='text-red-500'>カレンダーを入力してください</p>
+              )}
             </div>
           </div>
         </div>
