@@ -24,11 +24,6 @@ function findMaxValue(dictionary: DateSchedules): number | undefined {
   return maxValue
 }
 
-function unixToTime(unixtime: number): string {
-  const dateTime = new Date(unixtime * 1000)
-  return dateTime.toLocaleTimeString()
-}
-
 function timeCreate(schedule: Schedule): {
   dates: number[][]
   dateSchedules: DateSchedules
