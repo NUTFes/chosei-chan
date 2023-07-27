@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Input } from '@/components/common'
@@ -9,7 +10,7 @@ import { Schedule } from '@/type/common'
 export default function Home() {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid, isSubmitting },
     handleSubmit,
     setValue,
     watch,
@@ -22,8 +23,11 @@ export default function Home() {
     return watchedCalender?.length !== 0
   }, [watchedCalender])
 
-  const onSubmit = (data: Schedule) => {
+  const router = useRouter()
+  const onSubmit = async (data: Schedule) => {
+    // 送信処理
     console.log(data)
+    await router.push('/schedule') // 遷移先のURL
   }
 
   return (
@@ -80,7 +84,13 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <Button type='submit'>調整ちゃんを入力</Button>
+        <Button
+          type='submit'
+          disabled={!isValid || !calenderValid}
+          loading={isSubmitting}
+        >
+          調整ちゃんを作成
+        </Button>
       </form>
     </MainLayout>
   )
