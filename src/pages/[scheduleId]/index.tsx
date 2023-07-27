@@ -21,13 +21,9 @@ export default function Home() {
             <div className='flex w-11/12 flex-col gap-4'>
               <div className='flex items-end gap-4 border-b-2 border-primary'>
                 <div className='bg-primary p-2'>
-                  <p className='whitespace-nowrap text-xl font-bold text-white'>
-                    備考
-                  </p>
+                  <p className='whitespace-nowrap text-xl font-bold text-white'>備考</p>
                 </div>
-                <p className='whitespace-pre-wrap break-all text-xl'>
-                  {SCHEDULE.memo}
-                </p>
+                <p className='whitespace-pre-wrap break-all text-xl'>{SCHEDULE.memo}</p>
               </div>
               <div className='flex flex-row-reverse'>
                 <ShareButton />
