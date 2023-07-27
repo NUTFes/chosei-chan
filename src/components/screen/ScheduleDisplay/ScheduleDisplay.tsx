@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import classNames from 'classnames'
 import { ScheduleDisplayProps } from './ScheduleDisplay.types'
 import { Schedule, User } from '@/type/common'
 
@@ -8,6 +8,19 @@ const TimeDiv = 86400 / divNum
 
 interface DateSchedules {
   [time: number]: number
+}
+
+function findMaxValue(dictionary: DateSchedules): number | undefined {
+  let maxValue: number | undefined
+
+  for (const key in dictionary) {
+    const value = dictionary[key]
+    if (typeof value === 'number' && (maxValue === undefined || value > maxValue)) {
+      maxValue = value
+    }
+  }
+
+  return maxValue
 }
 
 function unixToDate(unixtime: number): string {
@@ -59,30 +72,27 @@ function countSchedules(
   }
 }
 
-// TypeScriptのコード
-interface ButtonStyle {
-  backgroundColor: string
-  color: string
-  padding: string
-  borderRadius: string
-}
-
-function getButtonStyle(isPrimary: boolean): ButtonStyle {
-  if (isPrimary) {
-    return {
-      backgroundColor: 'bg-blue-500',
-      color: 'text-white',
-      padding: 'px-4 py-2',
-      borderRadius: 'rounded-md',
+function colorArrayCreate(colors: string[], max: number | undefined): string[] {
+  if (!max) {
+    return []
+  }
+  const newColors: string[] = []
+  const divNumber: number = colors.length / (max + 1)
+  newColors.push(colors[0])
+  if (colors.length < max) {
+    for (let i = 1; i < max; i++) {
+      if (Math.floor(i * divNumber) == 0) {
+        newColors.push(colors[1])
+      } else {
+        newColors.push(colors[Math.floor(i * divNumber)])
+      }
     }
   } else {
-    return {
-      backgroundColor: 'bg-gray-300',
-      color: 'text-gray-800',
-      padding: 'px-3 py-1',
-      borderRadius: 'rounded-sm',
+    for (let i = 1; i <= max; i++) {
+      newColors.push(colors[Math.ceil(i * divNumber)])
     }
   }
+  return newColors
 }
 
 const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
@@ -91,6 +101,17 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
   const dateSchedule: DateSchedules = result.dateSchedules
   const newDateSchedules = countSchedules(dateSchedule, schedule.users)
 
+  const max = findMaxValue(newDateSchedules)
+  const bgColorDefine = [
+    'bg-white',
+    'bg-fuchsia-200',
+    'bg-fuchsia-300',
+    'bg-fuchsia-400',
+    'bg-fuchsia-500',
+    'bg-fuchsia-600',
+  ]
+  const colors = colorArrayCreate(bgColorDefine, max)
+  console.log(colors)
   return (
     <div className='overflow-x-scroll rounded-lg bg-info-content'>
       <div className='flex justify-center p-1 md:p-2'>
@@ -105,34 +126,21 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
                 {newDates[index].map((time, index) => (
                   <>
                     <div
-                      className={clsx(
-                        { 'bg-white': !newDateSchedules[time] },
-                        {
-                          'bg-accent': newDateSchedules[time],
-                        },
-                        {
-                          'm-0': newDateSchedules[time],
-                        },
-                        'h-2',
-                        'self-start',
-                        'md:h-3',
-                      )}
+                      className={classNames(colors[newDateSchedules[time]], 'h-2 md:h-3')}
                       key={time}
                     >
                       <p
-                        className={clsx(
+                        className={classNames(
                           { hidden: !(index % 2 == 0) },
                           { 'text-lime-50': newDateSchedules[time] },
                           { 'text-zinc-300': !newDateSchedules[time] },
-                          'text-xs',
-                          'select-none',
-                          'align-top',
+                          'text-xs select-none align-top',
                         )}
                       >
                         {unixToTime(time).slice(0, -3)}
                       </p>
                     </div>
-                    <hr className={clsx({ hidden: index % 2 == 0 })}></hr>
+                    <hr className={classNames({ hidden: index % 2 == 0 })}></hr>
                   </>
                 ))}
               </div>
