@@ -52,7 +52,7 @@ export default function Home(props: Props) {
                 {schedule.users &&
                   schedule.users.map((user) => (
                     <>
-                      <p className='badge badge-outline badge-neutral w-full whitespace-nowrap'>
+                      <p className='badge badge-neutral badge-outline w-full whitespace-nowrap'>
                         {user.name}
                       </p>
                     </>
@@ -87,13 +87,15 @@ export default function Home(props: Props) {
                 {schedule.users &&
                   schedule.users.map((user) => (
                     <>
-                      <p className='badge badge-neutral whitespace-nowrap'>{user.name}</p>
+                      <p className='badge badge-neutral badge-outline whitespace-nowrap'>
+                        {user.name}
+                      </p>
                     </>
                   ))}
               </div>
-              <div className='mx-auto flex w-full items-center justify-center'>
-                <ScheduleDisplay schedule={schedule} />
-              </div>
+            </div>
+            <div className='mx-auto flex w-screen items-center justify-center md:w-11/12'>
+              <ScheduleDisplay schedule={schedule} />
             </div>
             <div className='flex w-full items-center justify-center'>
               <MemoList users={schedule.users} />

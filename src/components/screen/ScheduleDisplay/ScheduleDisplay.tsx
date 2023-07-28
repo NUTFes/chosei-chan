@@ -111,16 +111,17 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
   const colors = colorArrayCreate(bgColorDefine, max)
   return (
     <div className='overflow-x-scroll rounded-lg'>
-      <div className='flex items-center'>
+      <div className='carousel flex items-center'>
         {schedule.dates.map((date, index) => (
-          <div key={index} className='flex flex-col'>
+          <div key={index} className='carousel-item flex w-screen flex-col md:w-48'>
             <div>
-              <div className='ml-auto w-12 translate-y-2 rounded-lg bg-neutral px-2 py-1 text-center text-sm text-white'>
+              <div className='ml-auto hidden translate-y-2 rounded-lg bg-neutral px-2 py-1 text-center text-sm text-white md:block md:w-12'>
                 {format(date, 'E')}
               </div>
-              <p className='select-none whitespace-nowrap rounded-t-xl border-x bg-primary px-10 py-2 text-lg tracking-wider text-white'>
-                {format(date, 'M / d')}
-              </p>
+              <div className='mx-auto flex select-none justify-center whitespace-nowrap rounded-t-xl border-x bg-primary px-10 py-2 tracking-wider text-white'>
+                <p className='text-3xl  md:text-lg'>{format(date, 'M / d')}</p>
+                <p className='text-3xl md:hidden'>({format(date, 'E')})</p>
+              </div>
             </div>
             <div>
               {newDates[index].map((time, dates_index) => {
@@ -146,7 +147,6 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
                         colors[newDateSchedules[time]],
                         { 'bg-pink-600': newDateSchedules[time] },
                         { 'bg-white': !newDateSchedules[time] },
-                        'h-4',
                         'tooltip h-4 flex',
                         { 'no-tooltip': selectedUsers.length === 0 },
                       )}
@@ -156,12 +156,13 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
                       <p
                         className={classNames(
                           { hidden: !(dates_index % 2 == 0) },
+                          { 'md:hidden': !(index === 0) },
                           { 'text-primary-content': newDateSchedules[time] },
                           { 'text-neutral': !newDateSchedules[time] },
-                          'text-xs select-none absolute left-0',
+                          'text-xs select-none absolute left-0 ml-2',
                         )}
                       >
-                        {index === 0 && format(time, 'HH:mm')}
+                        {format(time, 'HH:mm')}
                       </p>
                     </div>
                     <hr className={classNames({ hidden: dates_index % 2 == 0 })} />
