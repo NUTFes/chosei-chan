@@ -55,11 +55,24 @@ export default function Create(props: Props) {
     }
   }
 
+  const backHome = async () => {
+    try {
+      await router.push('/' + props.id)
+      return null
+    } catch (error) {
+      console.error('An error occurred:', error)
+      return null
+    }
+  }
+
   return (
     <MainLayout>
       <form className='flex min-h-screen flex-col' onSubmit={handleSubmit(onSubmit)}>
         <main className='grow'>
-          <div className='my-20 flex flex-col items-center justify-center gap-8'>
+          <Button className='btn-secondary btn-outline btn-sm m-5' onClick={backHome}>
+            ←戻る
+          </Button>
+          <div className='mb-10 flex flex-col items-center justify-center gap-8'>
             <div className='flex w-11/12 items-end gap-9 border-b-2 border-primary'>
               <div className='bg-primary p-2'>
                 <p className='whitespace-nowrap text-xl font-bold text-white'>
