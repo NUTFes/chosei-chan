@@ -15,3 +15,7 @@
       pointer-events: none; /* tooltipのイベントを無効化 */
     }
   }
+
+body{
+background-color: white;
+}
