@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
@@ -76,7 +77,7 @@ export default function Home() {
                 </p>
                 <p className='text-xl font-semibold'>メモを入力（任意）</p>
               </div>
-              <p className='ml-4 text-sm'>※飲み会、会議など</p>
+              <p className='ml-4 text-sm'>※参加可能な時にチェックしてください など</p>
               <TextArea bordered={true} ghosted={false} {...register('memo')} />
               <div className='divider md:hidden' />
             </div>
@@ -95,9 +96,9 @@ export default function Home() {
                   setValue('dates', selectedDate)
                 }}
               />
-              {!calenderValid && (
-                <p className='text-red-500'>カレンダーを入力してください</p>
-              )}
+              <p className={classNames({ 'opacity-0': calenderValid }, 'text-red-500')}>
+                カレンダーを入力してください
+              </p>
             </div>
           </div>
         </div>
