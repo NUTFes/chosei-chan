@@ -43,16 +43,16 @@ export default function Home(props: Props) {
                   イベント名
                 </p>
               </div>
-              <p className='break-all text-2xl'>{schedule.name}</p>
-              <p className='whitespace-nowrap text-base'>
+              <p className='text-xl md:whitespace-nowrap md:text-2xl'>{schedule.name}</p>
+              <p className='hidden whitespace-nowrap pb-1 text-base md:block'>
                 参加{(schedule.users && schedule.users.length) || (!schedule.users && 0)}
                 人
               </p>
-              <div className='hidden-scrollbar hidden gap-1 overflow-x-auto md:flex'>
+              <div className='hidden-scrollbar hidden gap-1 overflow-x-auto pb-1 md:flex'>
                 {schedule.users &&
                   schedule.users.map((user) => (
                     <>
-                      <p className='badge badge-secondary w-full whitespace-nowrap text-white'>
+                      <p className='badge badge-primary w-full whitespace-nowrap text-white'>
                         {user.name}
                       </p>
                     </>
@@ -69,6 +69,20 @@ export default function Home(props: Props) {
               <div className='flex flex-row-reverse'>
                 <ShareButton />
                 <Button onClick={toCreate}>予定を追加</Button>
+              </div>
+              <p className='block whitespace-nowrap text-base md:hidden'>
+                参加
+                {(schedule.users && schedule.users.length) || (!schedule.users && 0)}人
+              </p>
+              <div className='hidden-scrollbar flex gap-1 overflow-x-auto md:hidden'>
+                {schedule.users &&
+                  schedule.users.map((user) => (
+                    <>
+                      <p className='badge badge-primary w-full whitespace-nowrap text-white'>
+                        {user.name}
+                      </p>
+                    </>
+                  ))}
               </div>
               <div className='mx-auto flex w-full items-center justify-center'>
                 <ScheduleDisplay schedule={schedule} />
