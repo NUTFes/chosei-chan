@@ -69,7 +69,12 @@ export default function Home(props: Props) {
               <div className='flex flex-row-reverse'>
                 <ShareButton />
                 <div className='mr-auto md:mx-0'>
-                  <Button onClick={handleCreate} size='md' variants='secondary' className='btn bg-primary'>
+                  <Button
+                    onClick={handleCreate}
+                    size='md'
+                    variants='secondary'
+                    className='btn bg-primary'
+                  >
                     予定を追加
                   </Button>
                 </div>
@@ -82,9 +87,7 @@ export default function Home(props: Props) {
                 {schedule.users &&
                   schedule.users.map((user) => (
                     <>
-                      <p className='badge badge-neutral whitespace-nowrap'>
-                        {user.name}
-                      </p>
+                      <p className='badge badge-neutral whitespace-nowrap'>{user.name}</p>
                     </>
                   ))}
               </div>
