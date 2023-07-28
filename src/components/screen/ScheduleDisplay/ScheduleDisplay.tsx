@@ -111,15 +111,19 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
   const colors = colorArrayCreate(bgColorDefine, max)
   return (
     <div className='overflow-x-scroll rounded-lg'>
-      <div className='flex items-center p-1 md:p-2'>
-        <div className='flex flex-col'>{}</div>
+      <div className='flex items-center'>
         {schedule.dates.map((date, index) => (
-          <div key={index}>
-            <p className='select-none whitespace-nowrap border bg-primary px-4 text-sm tracking-wider text-white md:px-10 md:py-2 md:text-lg'>
-              {format(date, 'M/d (E)')}
-            </p>
-            <div className='border'>
-              {newDates[index].map((time, index) => {
+          <div key={index} className='flex flex-col'>
+            <div>
+              <div className='ml-auto w-12 translate-y-2 rounded-lg bg-neutral px-2 py-1 text-center text-sm text-white'>
+                {format(date, 'E')}
+              </div>
+              <p className='select-none whitespace-nowrap rounded-t-xl border-x bg-primary px-10 py-2 text-lg tracking-wider text-white'>
+                {format(date, 'M / d')}
+              </p>
+            </div>
+            <div>
+              {newDates[index].map((time, dates_index) => {
                 const selectedUsers = schedule.users
                   ? schedule.users.filter(
                       (user) =>
@@ -131,32 +135,37 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
 
                 const tooltipContent =
                   selectedUsers.length > 0
-                    ? selectedUsers.map((user) => user.name).join(', ')
+                    ? format(time, 'HH:mm') +
+                      '\n' +
+                      selectedUsers.map((user) => user.name).join(', ')
                     : ''
-
                 return (
-                  <div
-                    className={classNames(
-                      colors[newDateSchedules[time]],
-                      { 'bg-pink-600': newDateSchedules[time] },
-                      { 'bg-white': !newDateSchedules[time] },
-                      'tooltip h-4 flex',
-                      { 'no-tooltip': selectedUsers.length === 0 },
-                    )}
-                    data-tip={tooltipContent}
-                    key={time}
-                  >
-                    <p
+                  <>
+                    <div
                       className={classNames(
-                        { hidden: !(index % 2 == 0) },
-                        { 'text-lime-50': newDateSchedules[time] },
-                        { 'text-gray-300': !newDateSchedules[time] },
-                        'text-xs select-none',
+                        colors[newDateSchedules[time]],
+                        { 'bg-pink-600': newDateSchedules[time] },
+                        { 'bg-white': !newDateSchedules[time] },
+                        'h-4',
+                        'tooltip h-4 flex',
+                        { 'no-tooltip': selectedUsers.length === 0 },
                       )}
+                      data-tip={tooltipContent}
+                      key={time}
                     >
-                      {format(time, 'HH:mm')}
-                    </p>
-                  </div>
+                      <p
+                        className={classNames(
+                          { hidden: !(dates_index % 2 == 0) },
+                          { 'text-primary-content': newDateSchedules[time] },
+                          { 'text-neutral': !newDateSchedules[time] },
+                          'text-xs select-none absolute left-0',
+                        )}
+                      >
+                        {index === 0 && format(time, 'HH:mm')}
+                      </p>
+                    </div>
+                    <hr className={classNames({ hidden: dates_index % 2 == 0 })} />
+                  </>
                 )
               })}
             </div>
