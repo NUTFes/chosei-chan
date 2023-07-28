@@ -100,8 +100,10 @@ const ScheduleInput: React.FC<ScheduleInputProps> = ({
                     'bg-secondary': selectedTimes.includes(time),
                     'bg-primary': otherUserSelectedTimes.includes(time),
                   })}
-                  draggable
-                  onDragEnter={() => {
+                  onTouchStart={() => {
+                    handleSelectedTimes(time)
+                  }}
+                  onTouchMove={() => {
                     handleSelectedTimes(time)
                   }}
                   onClick={() => {
