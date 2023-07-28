@@ -1,5 +1,5 @@
-import { ButtonProps } from './Button.types';
-import classNames from 'classnames';
+import classNames from 'classnames'
+import { ButtonProps } from './Button.types'
 
 const Button: React.FC<ButtonProps> = ({
   children,
@@ -7,18 +7,24 @@ const Button: React.FC<ButtonProps> = ({
   size = 'md',
   loading,
   outlined,
+  className,
   ...props
 }) => {
-  const variantsClass = variants ? `btn-${variants}` : 'btn-primary';
-  const sizeClass = size === 'md' ? '' : `btn-${size}`;
-  const outlinedClass = outlined ? 'btn-outline' : '';
-
   return (
-    <button className={classNames('btn', variantsClass, sizeClass, outlinedClass)} {...props}>
-      {loading && <span className="loading loading-spinner"></span>}
+    <button
+      className={classNames(
+        'btn',
+        `btn-${variants}`,
+        `btn-${size}`,
+        outlined && 'btn-outline',
+        className,
+      )}
+      {...props}
+    >
+      {loading && <span className='loading loading-spinner'></span>}
       {children}
     </button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

@@ -6,10 +6,10 @@ changelog:
   categories:
     - title: New Features 🎉
       labels:
-        - "enhancement"
+        - 'enhancement'
     - title: Bug Fix 💊
       labels:
-        - "bug"
+        - 'bug'
     - title: Other Changes 🛠
       labels:
-        - "*"
+        - '*'

@@ -1,35 +1,25 @@
+name: Prettier
+
 on:
-  pull_request:
-    branches:
+  push:
+    branches-ignore:
       - develop
-    paths:
-      - "view/next-project/**"
+      - main
+
+env:
+  FILE_PATTERN: "src/**/*.{ts,tsx,js,jsx}"
 
 jobs:
-  prettier:
+  lint:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
-          # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: npm
-          cache-dependency-path: view/next-project/package-lock.json
-      - name: npm install
-        working-directory: view/next-project
-        run: npm install
-      - name: Prettier
-        working-directory: view/next-project
-        run: npm run format
-      - name: Lint
-        working-directory: view/next-project
-        run: npm run lint:fix
+          node-version: 14.x
+      - name: Run Prettier
+        run: |
+          npx prettier --write ${FILE_PATTERN}
       - uses: stefanzweifel/git-auto-commit-action@v3.0.0
         with:
-          commit_message: formatted by workflow
+          commit_message: Apply Prettier Change

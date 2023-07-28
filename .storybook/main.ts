@@ -6,6 +6,7 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
+    '@storybook/addon-viewport/register',
     {
       name: '@storybook/addon-postcss',
       options: {
@@ -15,6 +16,7 @@ const config: StorybookConfig = {
       },
     },
   ],
+  staticDirs: ['../public'],
   framework: {
     name: '@storybook/nextjs',
     options: {},
