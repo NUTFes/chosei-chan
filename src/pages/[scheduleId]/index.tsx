@@ -28,7 +28,7 @@ export default function Home(props: Props) {
 
   const router = useRouter()
   const createURL = props.id + `/create`
-  const toCreate = async () => {
+  const handleCreate = async () => {
     await router.push(createURL) // 遷移先のURL
   }
 
@@ -58,7 +58,11 @@ export default function Home(props: Props) {
               </div>
               <div className='flex flex-row-reverse'>
                 <ShareButton />
-                <Button onClick={toCreate}>予定を追加</Button>
+                <div className='mr-auto md:mx-0'>
+                  <Button onClick={handleCreate} size='md' variants='primary'>
+                    予定を追加
+                  </Button>
+                </div>
               </div>
               <div className='mx-auto flex w-full items-center justify-center'>
                 <ScheduleDisplay schedule={schedule} />
