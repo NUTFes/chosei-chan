@@ -123,31 +123,51 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
               </p>
             </div>
             <div>
-              {newDates[index].map((time, dates_index) => (
-                <>
-                  <div
-                    className={classNames(
-                      colors[newDateSchedules[time]],
-                      { 'bg-pink-600': newDateSchedules[time] },
-                      { 'bg-white': !newDateSchedules[time] },
-                      'h-4',
-                    )}
-                    key={time}
-                  >
-                    <p
+              {newDates[index].map((time, dates_index) => {
+                const selectedUsers = schedule.users
+                  ? schedule.users.filter(
+                      (user) =>
+                        user.availables?.some(
+                          (available) => time >= available.from && time < available.to,
+                        ),
+                    )
+                  : []
+
+                const tooltipContent =
+                  selectedUsers.length > 0
+                    ? format(time, 'HH:mm') +
+                      '\n' +
+                      selectedUsers.map((user) => user.name).join(', ')
+                    : ''
+                return (
+                  <>
+                    <div
                       className={classNames(
-                        { hidden: !(dates_index % 2 == 0) },
-                        { 'text-base-100': newDateSchedules[time] },
-                        { 'text-neutral': !newDateSchedules[time] },
-                        'text-xs select-none',
+                        colors[newDateSchedules[time]],
+                        { 'bg-pink-600': newDateSchedules[time] },
+                        { 'bg-white': !newDateSchedules[time] },
+                        'h-4',
+                        'tooltip h-4 flex',
+                        { 'no-tooltip': selectedUsers.length === 0 },
                       )}
+                      data-tip={tooltipContent}
+                      key={time}
                     >
-                      {index === 0 && format(time, 'HH:mm')}
-                    </p>
-                  </div>
-                  <hr className={classNames({ hidden: dates_index % 2 == 0 })} />
-                </>
-              ))}
+                      <p
+                        className={classNames(
+                          { hidden: !(dates_index % 2 == 0) },
+                          { 'text-base-100': newDateSchedules[time] },
+                          { 'text-neutral': !newDateSchedules[time] },
+                          'text-xs select-none absolute left-0',
+                        )}
+                      >
+                        {index === 0 && format(time, 'HH:mm')}
+                      </p>
+                    </div>
+                    <hr className={classNames({ hidden: dates_index % 2 == 0 })} />
+                  </>
+                )
+              })}
             </div>
           </div>
         ))}
