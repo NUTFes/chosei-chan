@@ -48,7 +48,7 @@ export default function Home(props: Props) {
                 参加{(schedule.users && schedule.users.length) || (!schedule.users && 0)}
                 人
               </p>
-              <div className='hidden-scrollbar flex gap-1 overflow-x-auto'>
+              <div className='hidden-scrollbar hidden gap-1 overflow-x-auto md:flex'>
                 {schedule.users &&
                   schedule.users.map((user) => (
                     <>
