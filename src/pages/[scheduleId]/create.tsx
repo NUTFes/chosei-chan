@@ -120,6 +120,7 @@ export default function Create(props: Props) {
               type='submit'
               disabled={!isValid || !ScheduleValid}
               loading={isSubmitting}
+              className='btn bg-primary'
             >
               日程を入力
             </Button>

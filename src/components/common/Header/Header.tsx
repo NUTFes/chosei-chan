@@ -1,14 +1,10 @@
+import Link from 'next/link'
 const Header: React.FC = () => {
   return (
-    <header className='flex h-16 items-center bg-neutral'>
-      <a
-        className='px-4 text-3xl text-white'
-        href='/'
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        Chosei-Chan
-      </a>
+    <header className='flex h-12 md:h-16 items-center p-1 md:p-2'>
+      <Link href='/'>
+        <img src='/header_logo.svg' className='h-full' />
+      </Link>
     </header>
   )
 }

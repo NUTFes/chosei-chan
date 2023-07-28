@@ -106,6 +106,7 @@ export default function Home() {
           type='submit'
           disabled={!isValid || !calenderValid}
           loading={isSubmitting}
+          className='btn bg-primary'
         >
           調整ちゃんを作成
         </Button>
