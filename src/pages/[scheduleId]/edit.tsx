@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { Button, Input } from '@/components/common'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ScheduleInput } from '@/components/screen'
-import { getSchedule, addUser } from '@/repositories'
+import { getSchedule, updateUser } from '@/repositories'
 import { User, Schedule, userSchema } from '@/type/common'
 
 interface Props {
@@ -25,6 +25,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 export default function Create(props: Props) {
+  const router = useRouter()
+  const { query } = router
+
+  const user_id = Number(query.id)
+  const schedule = props.schedule
+
+  const users: User[] = schedule.users || [{ name: '', memo: '', availables: null }]
+
   const {
     register,
     formState: { errors, isValid, isSubmitting },
@@ -33,13 +41,13 @@ export default function Create(props: Props) {
     watch,
   } = useForm<User>({
     mode: 'onSubmit',
+    defaultValues: {
+      name: users[user_id].name,
+      memo: users[user_id].memo,
+      availables: users[user_id].availables,
+    },
   })
 
-  const router = useRouter()
-  const { query } = router
-
-  const user_id = Number(query.id)
-  const schedule = props.schedule
   const watchedSchedule = watch('availables')
   const ScheduleValid = useMemo(() => {
     return watchedSchedule?.length !== 0
@@ -48,7 +56,10 @@ export default function Create(props: Props) {
   const onSubmit = async (data: User) => {
     try {
       userSchema.parse(data)
-      await addUser(props.id, data)
+      const users: User[] = props.schedule.users || [
+        { name: '', memo: '', availables: null },
+      ]
+      await updateUser(props.id, users, data, user_id)
       await router.push('/' + props.id)
       return null
     } catch (error) {
@@ -57,9 +68,6 @@ export default function Create(props: Props) {
     }
   }
 
-  const users: User[] = schedule.users && schedule.users
-
-  const userMemo: string = users[user_id].memo
   return (
     <MainLayout>
       <form className='flex min-h-screen flex-col' onSubmit={handleSubmit(onSubmit)}>
@@ -89,7 +97,6 @@ export default function Create(props: Props) {
                   </div>
                   <div className='flex w-60 flex-col'>
                     <Input
-                      value={users[user_id].name}
                       {...register('name', { required: '名前を入力してください' })}
                     />
                     {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
@@ -104,7 +111,7 @@ export default function Create(props: Props) {
                     </div>
                   </div>
                   <div className='flex w-60 flex-col md:w-10/12'>
-                    <Input {...register('memo')} value={userMemo} />
+                    <Input {...register('memo')} />
                   </div>
                 </div>
               </div>
@@ -128,7 +135,7 @@ export default function Create(props: Props) {
               loading={isSubmitting}
               className='btn bg-primary'
             >
-              日程を入力
+              修正
             </Button>
           </div>
         </main>
