@@ -140,7 +140,7 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
                       colors[newDateSchedules[time]],
                       { 'bg-pink-600': newDateSchedules[time] },
                       { 'bg-white': !newDateSchedules[time] },
-                      'tooltip h-2 md:h-3 flex',
+                      'tooltip h-4 flex',
                       { 'no-tooltip': selectedUsers.length === 0 },
                     )}
                     data-tip={tooltipContent}
