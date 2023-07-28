@@ -156,7 +156,7 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
                       <p
                         className={classNames(
                           { hidden: !(dates_index % 2 == 0) },
-                          { 'text-base-100': newDateSchedules[time] },
+                          { 'text-primary-content': newDateSchedules[time] },
                           { 'text-neutral': !newDateSchedules[time] },
                           'text-xs select-none absolute left-0',
                         )}

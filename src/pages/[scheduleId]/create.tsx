@@ -6,7 +6,7 @@ import { Button, Input } from '@/components/common'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ScheduleInput } from '@/components/screen'
 import { getSchedule, addUser } from '@/repositories'
-import { User, Schedule, userSchema } from '@/type/common'
+import { User, Schedule, userSchema, Available } from '@/type/common'
 
 interface Props {
   schedule: Schedule
@@ -33,6 +33,7 @@ export default function Create(props: Props) {
     watch,
   } = useForm<User>({
     mode: 'onSubmit',
+    defaultValues: { name: '', memo: '', availables: null },
   })
 
   const schedule = props.schedule
@@ -54,7 +55,6 @@ export default function Create(props: Props) {
     }
   }
 
-  const user: User = { name: '', memo: '', availables: null }
   return (
     <MainLayout>
       <form className='flex min-h-screen flex-col' onSubmit={handleSubmit(onSubmit)}>
@@ -74,13 +74,11 @@ export default function Create(props: Props) {
             </div>
             <div className='flex w-11/12 flex-col gap-8'>
               <div className='flex flex-col gap-4 md:mx-20'>
-                <div className='flex items-end'>
-                  <div className='mr-4 flex w-20 justify-end md:w-24'>
-                    <div className='flex h-12 items-center justify-center rounded-full bg-primary p-3'>
-                      <p className='whitespace-nowrap font-bold text-white md:text-xl'>
-                        名前
-                      </p>
-                    </div>
+                <div className='flex gap-4'>
+                  <div className='flex h-12 w-24 items-center justify-center rounded-full bg-primary p-3'>
+                    <p className='whitespace-nowrap font-bold text-white md:text-xl'>
+                      名前
+                    </p>
                   </div>
                   <div className='flex w-60 flex-col'>
                     <Input
@@ -89,13 +87,11 @@ export default function Create(props: Props) {
                     {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                   </div>
                 </div>
-                <div className='flex items-end'>
-                  <div className='mr-4 flex w-20 justify-end md:w-24'>
-                    <div className='flex h-12 items-center justify-center rounded-full bg-primary p-3'>
-                      <p className='whitespace-nowrap font-bold text-white md:text-xl'>
-                        メモ欄
-                      </p>
-                    </div>
+                <div className='flex gap-4'>
+                  <div className='flex w-24 items-center justify-center rounded-full bg-primary p-3'>
+                    <p className='whitespace-nowrap font-bold text-white md:text-xl'>
+                      コメント
+                    </p>
                   </div>
                   <div className='flex w-60 flex-col md:w-10/12'>
                     <Input {...register('memo')} />
@@ -104,12 +100,9 @@ export default function Create(props: Props) {
               </div>
               <ScheduleInput
                 schedule={schedule}
-                editUser={user}
-                onChange={(availableDates) => {
+                onChange={(availableDates: Available[] | null) => {
                   if (!availableDates) return
-                  availableDates.forEach(() => {
-                    setValue('availables', availableDates)
-                  })
+                  setValue('availables', availableDates)
                 }}
               />
               {!ScheduleValid && (
@@ -120,7 +113,7 @@ export default function Create(props: Props) {
               type='submit'
               disabled={!isValid || !ScheduleValid}
               loading={isSubmitting}
-              className='btn bg-primary'
+              className='btn btn-primary text-white'
             >
               日程を入力
             </Button>

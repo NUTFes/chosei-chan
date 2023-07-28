@@ -66,14 +66,14 @@ export default function Home(props: Props) {
                 </div>
                 <p className='whitespace-pre-wrap break-all text-base'>{schedule.memo}</p>
               </div>
-              <div className='flex flex-row-reverse'>
+              <div className='flex flex-row-reverse gap-2'>
                 <ShareButton />
                 <div className='mr-auto md:mx-0'>
                   <Button
                     onClick={handleCreate}
                     size='md'
                     variants='secondary'
-                    className='btn bg-primary'
+                    className='btn btn-primary text-white'
                   >
                     予定を追加
                   </Button>
