@@ -79,9 +79,10 @@ function colorArrayCreate(colors: string[], max: number | undefined): string[] {
       }
     }
   } else {
-    for (let i = 1; i <= max; i++) {
+    for (let i = 1; i < max; i++) {
       newColors.push(colors[Math.ceil(i * divNumber)])
     }
+    newColors[max] = colors[colors.length - 1]
   }
   return newColors
 }
@@ -95,15 +96,19 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
 
   const max = findMaxValue(newDateSchedules)
   const bgColorDefine = [
-    'bg-white',
-    'bg-fuchsia-200',
-    'bg-fuchsia-300',
-    'bg-fuchsia-400',
-    'bg-fuchsia-500',
-    'bg-fuchsia-600',
+    'bg-opacity-100',
+    'bg-opacity-10',
+    'bg-opacity-20',
+    'bg-opacity-30',
+    'bg-opacity-40',
+    'bg-opacity-50',
+    'bg-opacity-60',
+    'bg-opacity-70',
+    'bg-opacity-80',
+    'bg-opacity-90',
+    'bg-opacity-100',
   ]
   const colors = colorArrayCreate(bgColorDefine, max)
-
   return (
     <div className='overflow-x-scroll rounded-lg'>
       <div className='flex items-center p-1 md:p-2'>
@@ -118,7 +123,12 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
                 {newDates[index].map((time, index) => (
                   <>
                     <div
-                      className={classNames(colors[newDateSchedules[time]], 'h-2 md:h-3')}
+                      className={classNames(
+                        colors[newDateSchedules[time]],
+                        { 'bg-pink-600': newDateSchedules[time] },
+                        { 'bg-white': !newDateSchedules[time] },
+                        'h-2 md:h-3',
+                      )}
                       key={time}
                     >
                       <p
