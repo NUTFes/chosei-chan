@@ -109,35 +109,51 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
       <div className='flex items-center p-1 md:p-2'>
         <div className='flex flex-col'>{}</div>
         {schedule.dates.map((date, index) => (
-          <>
-            <div key={index}>
-              <p className='select-none whitespace-nowrap border bg-secondary-focus px-4 text-sm tracking-wider text-white md:px-10 md:text-lg'>
-                {format(date, 'M/d (E)')}
-              </p>
-              <div className='border'>
-                {newDates[index].map((time, index) => (
-                  <>
-                    <div
-                      className={classNames(colors[newDateSchedules[time]], 'h-2 md:h-3')}
-                      key={time}
+          <div key={index}>
+            <p className='select-none whitespace-nowrap border bg-secondary-focus px-4 text-sm tracking-wider text-white md:px-10 md:text-lg'>
+              {format(date, 'M/d (E)')}
+            </p>
+            <div className='border'>
+              {newDates[index].map((time, index) => {
+                const selectedUsers = schedule.users
+                  ? schedule.users.filter(
+                      (user) =>
+                        user.availables?.some(
+                          (available) => time >= available.from && time < available.to,
+                        ),
+                    )
+                  : []
+
+                const tooltipContent =
+                  selectedUsers.length > 0
+                    ? selectedUsers.map((user) => user.name).join(', ')
+                    : ''
+
+                return (
+                  <div
+                    className={classNames(
+                      colors[newDateSchedules[time]],
+                      'tooltip h-2 md:h-3 flex',
+                      { 'no-tooltip': selectedUsers.length === 0 },
+                    )}
+                    data-tip={tooltipContent}
+                    key={time}
+                  >
+                    <p
+                      className={classNames(
+                        { hidden: !(index % 2 == 0) },
+                        { 'text-lime-50': newDateSchedules[time] },
+                        { 'text-gray-300': !newDateSchedules[time] },
+                        'text-xs select-none',
+                      )}
                     >
-                      <p
-                        className={classNames(
-                          { hidden: !(index % 2 == 0) },
-                          { 'text-lime-50': newDateSchedules[time] },
-                          { 'text-gray-300': !newDateSchedules[time] },
-                          'text-xs select-none',
-                        )}
-                      >
-                        {format(time, 'HH:mm')}
-                      </p>
-                    </div>
-                    <hr className={classNames({ hidden: index % 2 == 0 })}></hr>
-                  </>
-                ))}
-              </div>
+                      {format(time, 'HH:mm')}
+                    </p>
+                  </div>
+                )
+              })}
             </div>
-          </>
+          </div>
         ))}
       </div>
     </div>

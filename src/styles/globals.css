@@ -11,4 +11,7 @@
       /* Chrome, Safari 対応 */
       display: none;
     }
+    .no-tooltip {
+      pointer-events: none; /* tooltipのイベントを無効化 */
+    }
   }
