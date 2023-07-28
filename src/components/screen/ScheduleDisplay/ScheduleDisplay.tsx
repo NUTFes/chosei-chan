@@ -119,8 +119,8 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
                 {format(date, 'E')}
               </div>
               <div className='mx-auto flex select-none justify-center whitespace-nowrap rounded-t-xl border-x bg-primary px-10 py-2 tracking-wider text-white'>
-                <p className='text-3xl  md:text-lg'>{format(date, 'M / d')}</p>
-                <p className='text-3xl md:hidden'>({format(date, 'E')})</p>
+                <p className='text-xl  md:text-lg'>{format(date, 'M / d')}</p>
+                <p className='ml-3 text-xl md:hidden'>({format(date, 'E')})</p>
               </div>
             </div>
             <div>

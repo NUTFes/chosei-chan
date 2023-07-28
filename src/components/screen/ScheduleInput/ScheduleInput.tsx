@@ -79,7 +79,7 @@ const ScheduleInput: React.FC<ScheduleInputProps> = ({
   }, [submitAvailableDates])
 
   return (
-    <div className='carousel flex w-full rounded-lg bg-white p-8 pl-24'>
+    <div className='carousel flex w-full gap-1 rounded-lg bg-white p-8 pl-24'>
       {schedule.dates.map((date, dateIndex) => {
         const dividedDay = dayDivideQuarterHour(date)
         return (
@@ -87,8 +87,8 @@ const ScheduleInput: React.FC<ScheduleInputProps> = ({
             key={date}
             className='carousel-item flex w-screen shrink-0 flex-col items-center gap-4 md:w-48'
           >
-            <div className='flex w-2/3 justify-center rounded-md bg-primary px-2 py-1'>
-              <p className='text-lg font-semibold text-white'>
+            <div className='flex w-screen justify-center rounded-t-xl bg-primary px-2 py-1 md:w-11/12 md:rounded-xl'>
+              <p className='w-screen py-1 text-center text-xl text-white'>
                 {format(date, 'M/d (E)')}
               </p>
             </div>
