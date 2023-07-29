@@ -23,21 +23,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-function showModal(id: string): void {
-  // dialog要素を取得
-  const dialogElement = document.getElementById(id) as HTMLDialogElement
-
-  // dialogがサポートされているかを確認
-  if (!dialogElement.showModal) {
-    // モーダルがサポートされていない場合のフォールバック
-    alert('Your browser does not support the "dialog" element.')
-    return
-  }
-
-  // dialogを開く
-  dialogElement.showModal()
-}
-
 export default function Home(props: Props) {
   const schedule = props.schedule
 
@@ -107,9 +92,14 @@ export default function Home(props: Props) {
               </p>
               <div className='hidden-scrollbar flex gap-1 overflow-x-auto md:hidden'>
                 {schedule.users &&
-                  schedule.users.map((user) => (
+                  schedule.users.map((user, index) => (
                     <>
-                      <p className='badge badge-neutral whitespace-nowrap'>{user.name}</p>
+                      <button
+                        className='btn btn-outline btn-xs select-none whitespace-nowrap'
+                        onClick={() => handleEdit(index)}
+                      >
+                        {user.name}
+                      </button>
                     </>
                   ))}
               </div>
