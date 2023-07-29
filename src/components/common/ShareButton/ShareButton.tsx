@@ -22,10 +22,10 @@ const ShareButtons: React.FC = () => {
 
   return (
     <div className='flex items-center gap-2'>
-      <button className='btn btn-circle btn-ghost' onClick={handleCopy}>
+      <button className='btn btn-circle btn-ghost hover:scale-110' onClick={handleCopy}>
         <AiOutlineCopy size='25' />
       </button>
-      <button onClick={handleShareLine}>
+      <button className='hover:scale-110' onClick={handleShareLine}>
         <Image src='/LINE_Brand_icon.png' width={36} height={36} alt='logo' />
       </button>
       <ToastContainer position='bottom-right' autoClose={3000} />

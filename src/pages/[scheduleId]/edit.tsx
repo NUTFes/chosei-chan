@@ -6,8 +6,8 @@ import { FiChevronLeft } from 'react-icons/fi'
 import { Button, Input } from '@/components/common'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ScheduleInput } from '@/components/screen'
-import { getSchedule, addUser } from '@/repositories'
-import { User, Schedule, userSchema, Available } from '@/type/common'
+import { getSchedule, updateUser } from '@/repositories'
+import { User, Schedule, userSchema } from '@/type/common'
 
 interface Props {
   schedule: Schedule
@@ -26,6 +26,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 export default function Create(props: Props) {
+  const router = useRouter()
+  const { query } = router
+
+  const user_id = Number(query.id)
+  const schedule = props.schedule
+
+  const users: User[] = schedule.users || [{ name: '', memo: '', availables: null }]
+
   const {
     register,
     formState: { errors, isValid, isSubmitting },
@@ -34,20 +42,25 @@ export default function Create(props: Props) {
     watch,
   } = useForm<User>({
     mode: 'onSubmit',
-    defaultValues: { name: '', memo: '', availables: null },
+    defaultValues: {
+      name: users[user_id].name,
+      memo: users[user_id].memo,
+      availables: users[user_id].availables,
+    },
   })
 
-  const schedule = props.schedule
   const watchedSchedule = watch('availables')
   const ScheduleValid = useMemo(() => {
     return watchedSchedule?.length !== 0
   }, [watchedSchedule])
 
-  const router = useRouter()
   const onSubmit = async (data: User) => {
     try {
       userSchema.parse(data)
-      await addUser(props.id, data)
+      const users: User[] = props.schedule.users || [
+        { name: '', memo: '', availables: null },
+      ]
+      await updateUser(props.id, users, data, user_id)
       await router.push('/' + props.id)
       return null
     } catch (error) {
@@ -89,11 +102,13 @@ export default function Create(props: Props) {
             </div>
             <div className='flex w-11/12 flex-col gap-8'>
               <div className='flex flex-col gap-4 md:mx-20'>
-                <div className='flex gap-4'>
-                  <div className='flex h-12 w-24 items-center justify-center rounded-full bg-primary p-3'>
-                    <p className='whitespace-nowrap font-bold text-white md:text-xl'>
-                      名前
-                    </p>
+                <div className='flex items-end'>
+                  <div className='mr-4 flex w-20 justify-end md:w-24'>
+                    <div className='flex h-12 items-center justify-center rounded-full bg-primary p-3'>
+                      <p className='whitespace-nowrap font-bold text-white md:text-xl'>
+                        名前
+                      </p>
+                    </div>
                   </div>
                   <div className='flex w-60 flex-col'>
                     <Input
@@ -102,24 +117,27 @@ export default function Create(props: Props) {
                     {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                   </div>
                 </div>
-                <div className='flex gap-4'>
-                  <div className='flex w-24 items-center justify-center rounded-full bg-primary p-3'>
-                    <p className='whitespace-nowrap font-bold text-white md:text-xl'>
-                      コメント
-                    </p>
+                <div className='flex items-end'>
+                  <div className='mr-4 flex w-20 justify-end md:w-24'>
+                    <div className='flex h-12 items-center justify-center rounded-full bg-primary p-3'>
+                      <p className='whitespace-nowrap font-bold text-white md:text-xl'>
+                        メモ欄
+                      </p>
+                    </div>
                   </div>
                   <div className='flex w-60 flex-col md:w-10/12'>
                     <Input {...register('memo')} />
                   </div>
                 </div>
               </div>
-            </div>
-            <div className='flex w-screen flex-col gap-8'>
               <ScheduleInput
                 schedule={schedule}
-                onChange={(availableDates: Available[] | null) => {
+                editUser={users[user_id]}
+                onChange={(availableDates) => {
                   if (!availableDates) return
-                  setValue('availables', availableDates)
+                  availableDates.forEach(() => {
+                    setValue('availables', availableDates)
+                  })
                 }}
               />
               {!ScheduleValid && (
@@ -130,9 +148,9 @@ export default function Create(props: Props) {
               type='submit'
               disabled={!isValid || !ScheduleValid}
               loading={isSubmitting}
-              className='btn btn-primary text-white'
+              className='btn bg-primary'
             >
-              日程を入力
+              修正
             </Button>
           </div>
         </main>
