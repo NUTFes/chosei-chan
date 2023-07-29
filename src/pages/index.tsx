@@ -57,7 +57,7 @@ export default function Home() {
           <div className='flex w-full flex-col md:w-1/2'>
             <div className='flex flex-col gap-2'>
               <div className='flex items-center gap-4'>
-                <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>
+                <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold text-white'>
                   STEP1
                 </p>
                 <p className='text-xl font-semibold'>イベント名を入力</p>
@@ -71,7 +71,7 @@ export default function Home() {
             <div className='divider' />
             <div className='flex flex-col gap-2'>
               <div className='flex items-center gap-4'>
-                <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>
+                <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold text-white'>
                   STEP2
                 </p>
                 <p className='text-xl font-semibold'>メモを入力（任意）</p>
@@ -84,7 +84,7 @@ export default function Home() {
           <div className='flex w-full flex-col md:w-1/2'>
             <div className='flex flex-col gap-2'>
               <div className='flex items-center gap-4'>
-                <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold'>
+                <p className='w-fit rounded-lg bg-primary p-2 text-xl font-semibold text-white'>
                   STEP3
                 </p>
                 <p className='text-xl font-semibold'>日付を入力</p>
