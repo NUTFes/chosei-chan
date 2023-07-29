@@ -15,11 +15,11 @@ const MemoList: React.FC<MemoListProps> = ({ users }) => {
         {filterUsers &&
           filterUsers.map((user) => (
             <>
-              <p className='rounded-box border p-2 text-lg text-primary outline md:ml-4 md:p-3'>
+              <p className='rounded-box border-2 text-lg text-primary outline md:ml-4 md:px-3 md:py-1'>
                 {user.name}
               </p>
-              <div className='chat-bubble chat-bubble-primary my-auto'>
-                <p className='hidden-scrollbar overflow-auto whitespace-nowrap break-keep text-xs text-white md:text-sm'>
+              <div className='chat-bubble chat-bubble-primary flex h-auto items-center'>
+                <p className='hidden-scrollbar overflow-x-auto whitespace-nowrap text-xs text-white'>
                   {user.memo}
                 </p>
               </div>
