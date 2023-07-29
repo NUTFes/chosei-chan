@@ -27,7 +27,6 @@ export default function Home() {
 
   const router = useRouter()
   const onSubmit = async (data: Schedule) => {
-    // 送信処理
     try {
       const submitData: Schedule = {
         ...data,
@@ -104,8 +103,10 @@ export default function Home() {
         </div>
         <Button
           type='submit'
+          variants='primary'
           disabled={!isValid || !calenderValid}
           loading={isSubmitting}
+          className='btn btn-primary text-white'
         >
           調整ちゃんを作成
         </Button>

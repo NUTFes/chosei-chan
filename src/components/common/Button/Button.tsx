@@ -7,6 +7,7 @@ const Button: React.FC<ButtonProps> = ({
   size = 'md',
   loading,
   outlined,
+  className,
   ...props
 }) => {
   return (
@@ -16,6 +17,7 @@ const Button: React.FC<ButtonProps> = ({
         `btn-${variants}`,
         `btn-${size}`,
         outlined && 'btn-outline',
+        className,
       )}
       {...props}
     >

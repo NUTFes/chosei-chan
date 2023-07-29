@@ -27,3 +27,7 @@ export type Available = z.infer<typeof availableSchema>
 export type User = z.infer<typeof userSchema>
 
 export type Schedule = z.infer<typeof scheduleSchema>
+
+export const isAvailable = (arg: unknown): arg is Available => {
+  return availableSchema.safeParse(arg).success
+}

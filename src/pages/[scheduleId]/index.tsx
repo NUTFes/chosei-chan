@@ -52,7 +52,7 @@ export default function Home(props: Props) {
                 {schedule.users &&
                   schedule.users.map((user) => (
                     <>
-                      <p className='badge badge-primary w-full whitespace-nowrap text-white'>
+                      <p className='badge badge-outline badge-neutral w-full whitespace-nowrap'>
                         {user.name}
                       </p>
                     </>
@@ -66,10 +66,15 @@ export default function Home(props: Props) {
                 </div>
                 <p className='whitespace-pre-wrap break-all text-base'>{schedule.memo}</p>
               </div>
-              <div className='flex flex-row-reverse'>
+              <div className='flex flex-row-reverse gap-2'>
                 <ShareButton />
                 <div className='mr-auto md:mx-0'>
-                  <Button onClick={handleCreate} size='md' variants='primary'>
+                  <Button
+                    onClick={handleCreate}
+                    size='md'
+                    variants='secondary'
+                    className='btn btn-primary text-white'
+                  >
                     予定を追加
                   </Button>
                 </div>
@@ -82,9 +87,7 @@ export default function Home(props: Props) {
                 {schedule.users &&
                   schedule.users.map((user) => (
                     <>
-                      <p className='badge badge-primary whitespace-nowrap text-white'>
-                        {user.name}
-                      </p>
+                      <p className='badge badge-neutral whitespace-nowrap'>{user.name}</p>
                     </>
                   ))}
               </div>

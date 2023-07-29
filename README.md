@@ -1,3 +1,5 @@
+![Frame 18](https://github.com/NUTFes/chosei-chan/assets/52590941/7b91db8b-5b4b-4528-87aa-82398cefeec0)
+
 このリポジトリはハッカソンで作成した「調整ちゃん」のリポジトリです。
 
 ## Getting Started
