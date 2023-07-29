@@ -23,6 +23,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
+function showModal(id: string): void {
+  // dialog要素を取得
+  const dialogElement = document.getElementById(id) as HTMLDialogElement
+
+  // dialogがサポートされているかを確認
+  if (!dialogElement.showModal) {
+    // モーダルがサポートされていない場合のフォールバック
+    alert('Your browser does not support the "dialog" element.')
+    return
+  }
+
+  // dialogを開く
+  dialogElement.showModal()
+}
+
 export default function Home(props: Props) {
   const schedule = props.schedule
 
@@ -50,11 +65,30 @@ export default function Home(props: Props) {
               </p>
               <div className='hidden-scrollbar hidden gap-1 overflow-x-auto pb-1 md:flex'>
                 {schedule.users &&
-                  schedule.users.map((user) => (
+                  schedule.users.map((user, index) => (
                     <>
-                      <p className='badge badge-outline badge-neutral w-full whitespace-nowrap'>
+                      <p
+                        className='badge badge-neutral badge-outline w-full select-none whitespace-nowrap'
+                        onClick={() => showModal(String(index))}
+                      >
                         {user.name}
                       </p>
+                      <dialog id={String(index)} className='modal'>
+                        <form method='dialog' className='modal-box'>
+                          <button className='btn btn-circle btn-ghost btn-sm absolute right-2 top-2'>
+                            ✖︎
+                          </button>
+                          <div className='mx-auto flex justify-center gap-4'>
+                            <Button className='btn-primary' onClick={handleCreate}>
+                              編集
+                            </Button>
+                            <Button className='btn-secondary'>削除</Button>
+                          </div>
+                        </form>
+                        <form className='modal-backdrop'>
+                          <button>close</button>
+                        </form>
+                      </dialog>
                     </>
                   ))}
               </div>
