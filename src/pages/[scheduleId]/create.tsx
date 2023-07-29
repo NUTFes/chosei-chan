@@ -70,7 +70,11 @@ export default function Create(props: Props) {
     <MainLayout>
       <form className='flex min-h-screen flex-col' onSubmit={handleSubmit(onSubmit)}>
         <main className='grow'>
-          <Button className='btn-secondary btn-outline btn-sm m-5' onClick={backHome}>
+          <Button
+            className='btn-secondary btn-outline btn-sm m-5'
+            type='button'
+            onClick={backHome}
+          >
             <FiChevronLeft />
             戻る
           </Button>
