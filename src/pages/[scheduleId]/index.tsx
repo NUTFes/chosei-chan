@@ -28,8 +28,12 @@ export default function Home(props: Props) {
 
   const router = useRouter()
   const createURL = props.id + `/create`
+  const editURL = props.id + `/edit`
   const handleCreate = async () => {
     await router.push(createURL) // 遷移先のURL
+  }
+  const handleEdit = async (index: number) => {
+    await router.push(editURL + '?id=' + String(index)) // 遷移先のURL
   }
 
   return (
@@ -50,11 +54,14 @@ export default function Home(props: Props) {
               </p>
               <div className='hidden-scrollbar hidden gap-1 overflow-x-auto pb-1 md:flex'>
                 {schedule.users &&
-                  schedule.users.map((user) => (
+                  schedule.users.map((user, index) => (
                     <>
-                      <p className='badge badge-neutral badge-outline w-full whitespace-nowrap'>
+                      <button
+                        className='btn btn-outline btn-xs select-none whitespace-nowrap normal-case'
+                        onClick={() => handleEdit(index)}
+                      >
                         {user.name}
-                      </p>
+                      </button>
                     </>
                   ))}
               </div>
@@ -72,7 +79,6 @@ export default function Home(props: Props) {
                   <Button
                     onClick={handleCreate}
                     size='md'
-                    variants='secondary'
                     className='btn btn-primary text-white'
                   >
                     予定を追加
@@ -85,11 +91,14 @@ export default function Home(props: Props) {
               </p>
               <div className='hidden-scrollbar flex gap-1 overflow-x-auto md:hidden'>
                 {schedule.users &&
-                  schedule.users.map((user) => (
+                  schedule.users.map((user, index) => (
                     <>
-                      <p className='badge badge-neutral badge-outline whitespace-nowrap'>
+                      <button
+                        className='btn btn-outline btn-xs select-none whitespace-nowrap normal-case'
+                        onClick={() => handleEdit(index)}
+                      >
                         {user.name}
-                      </p>
+                      </button>
                     </>
                   ))}
               </div>
