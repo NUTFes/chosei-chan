@@ -43,8 +43,12 @@ export default function Home(props: Props) {
 
   const router = useRouter()
   const createURL = props.id + `/create`
+  const editURL = props.id + `/edit`
   const handleCreate = async () => {
     await router.push(createURL) // 遷移先のURL
+  }
+  const handleEdit = async (index: number) => {
+    await router.push(editURL + '?id=' + String(index)) // 遷移先のURL
   }
 
   return (
@@ -67,28 +71,12 @@ export default function Home(props: Props) {
                 {schedule.users &&
                   schedule.users.map((user, index) => (
                     <>
-                      <p
-                        className='badge badge-neutral badge-outline w-full select-none whitespace-nowrap'
-                        onClick={() => showModal(String(index))}
+                      <button
+                        className='btn btn-outline btn-xs select-none whitespace-nowrap'
+                        onClick={() => handleEdit(index)}
                       >
                         {user.name}
-                      </p>
-                      <dialog id={String(index)} className='modal'>
-                        <form method='dialog' className='modal-box'>
-                          <button className='btn btn-circle btn-ghost btn-sm absolute right-2 top-2'>
-                            ✖︎
-                          </button>
-                          <div className='mx-auto flex justify-center gap-4'>
-                            <Button className='btn-primary' onClick={handleCreate}>
-                              編集
-                            </Button>
-                            <Button className='btn-secondary'>削除</Button>
-                          </div>
-                        </form>
-                        <form className='modal-backdrop'>
-                          <button>close</button>
-                        </form>
-                      </dialog>
+                      </button>
                     </>
                   ))}
               </div>
