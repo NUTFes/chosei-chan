@@ -57,7 +57,7 @@ export default function Home(props: Props) {
                   schedule.users.map((user, index) => (
                     <>
                       <button
-                        className='btn btn-outline btn-xs select-none whitespace-nowrap'
+                        className='btn btn-outline btn-xs select-none whitespace-nowrap normal-case'
                         onClick={() => handleEdit(index)}
                       >
                         {user.name}
@@ -79,7 +79,6 @@ export default function Home(props: Props) {
                   <Button
                     onClick={handleCreate}
                     size='md'
-                    variants='secondary'
                     className='btn btn-primary text-white'
                   >
                     予定を追加
@@ -95,7 +94,7 @@ export default function Home(props: Props) {
                   schedule.users.map((user, index) => (
                     <>
                       <button
-                        className='btn btn-outline btn-xs select-none whitespace-nowrap'
+                        className='btn btn-outline btn-xs select-none whitespace-nowrap normal-case'
                         onClick={() => handleEdit(index)}
                       >
                         {user.name}
