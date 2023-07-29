@@ -103,9 +103,9 @@ export default function Home(props: Props) {
                     </>
                   ))}
               </div>
-              <div className='mx-auto flex w-full items-center justify-center'>
-                <ScheduleDisplay schedule={schedule} />
-              </div>
+            </div>
+            <div className='mx-auto flex w-screen items-center justify-center md:w-11/12'>
+              <ScheduleDisplay schedule={schedule} />
             </div>
             <div className='flex w-full items-center justify-center'>
               <MemoList users={schedule.users} />
