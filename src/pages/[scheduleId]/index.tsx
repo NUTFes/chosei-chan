@@ -52,7 +52,7 @@ export default function Home(props: Props) {
                 {schedule.users &&
                   schedule.users.map((user) => (
                     <>
-                      <p className='badge badge-outline badge-neutral w-full whitespace-nowrap'>
+                      <p className='badge badge-neutral badge-outline w-full whitespace-nowrap'>
                         {user.name}
                       </p>
                     </>
