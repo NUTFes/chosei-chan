@@ -98,6 +98,8 @@ export default function Create(props: Props) {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className='flex w-screen flex-col gap-8'>
               <ScheduleInput
                 schedule={schedule}
                 onChange={(availableDates: Available[] | null) => {
