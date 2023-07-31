@@ -103,7 +103,6 @@ export default function Home() {
         </div>
         <Button
           type='submit'
-          variants='primary'
           disabled={!isValid || !calenderValid}
           loading={isSubmitting}
           className='btn btn-primary text-white'
