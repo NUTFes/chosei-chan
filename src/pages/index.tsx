@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Input } from '@/components/common'
 import { TextArea } from '@/components/common/TextArea'
@@ -24,7 +24,7 @@ export default function Home() {
   const calenderValid = useMemo(() => {
     return watchedCalender?.length !== 0
   }, [watchedCalender])
-
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const router = useRouter()
   const onSubmit = async (data: Schedule) => {
     try {
@@ -36,6 +36,7 @@ export default function Home() {
         createdAt: null,
         updatedAt: null,
       }
+      setIsSubmitted(true)
       scheduleSchema.parse(submitData)
       const res = await addSchedule(submitData)
       const url = String(res)
@@ -104,7 +105,7 @@ export default function Home() {
         <Button
           type='submit'
           variants='primary'
-          disabled={!isValid || !calenderValid}
+          disabled={!isValid || !calenderValid || isSubmitted}
           loading={isSubmitting}
           className='btn btn-primary text-white'
         >

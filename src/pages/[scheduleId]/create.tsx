@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FiChevronLeft } from 'react-icons/fi'
 import { Button, Input } from '@/components/common'
@@ -42,11 +42,12 @@ export default function Create(props: Props) {
   const ScheduleValid = useMemo(() => {
     return watchedSchedule?.length !== 0
   }, [watchedSchedule])
-
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const router = useRouter()
   const onSubmit = async (data: User) => {
     try {
       userSchema.parse(data)
+      setIsSubmitted(true)
       await addUser(props.id, data)
       await router.push('/' + props.id)
       return null
@@ -132,7 +133,7 @@ export default function Create(props: Props) {
             </div>
             <Button
               type='submit'
-              disabled={!isValid || !ScheduleValid}
+              disabled={!isValid || !ScheduleValid || isSubmitted}
               loading={isSubmitting}
               className='btn btn-primary text-white'
             >
