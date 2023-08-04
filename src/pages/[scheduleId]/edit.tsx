@@ -69,7 +69,7 @@ export default function Create(props: Props) {
     }
   }
 
-  const backHome = async () => {
+  const backHandler = async () => {
     try {
       await router.push('/' + props.id)
       return null
@@ -86,7 +86,7 @@ export default function Create(props: Props) {
           <Button
             className='btn-secondary btn-outline btn-sm m-5'
             type='button'
-            onClick={backHome}
+            onClick={backHandler}
           >
             <FiChevronLeft />
             戻る
