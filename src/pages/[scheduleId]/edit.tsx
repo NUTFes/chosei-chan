@@ -99,7 +99,7 @@ export default function Create(props: Props) {
       <form className='flex min-h-screen flex-col' onSubmit={handleSubmit(onSubmit)}>
         <main className='grow'>
           <Button
-            className='btn-secondary btn-outline btn-sm m-5'
+            className='btn-neutral btn-sm m-5 text-white'
             type='button'
             onClick={backHandler}
           >
@@ -166,7 +166,7 @@ export default function Create(props: Props) {
             <div className='flex gap-5'>
               <Button
                 type='button'
-                className='btn border-secondary-focus bg-secondary-focus text-white hover:border-secondary hover:bg-secondary'
+                className='btn border-secondary bg-secondary text-white hover:border-secondary-focus hover:bg-secondary-focus'
                 onClick={deleteHandler}
               >
                 削除
