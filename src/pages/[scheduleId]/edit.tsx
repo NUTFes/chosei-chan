@@ -6,7 +6,7 @@ import { FiChevronLeft } from 'react-icons/fi'
 import { Button, Input } from '@/components/common'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ScheduleInput } from '@/components/screen'
-import { getSchedule, updateUser } from '@/repositories'
+import { getSchedule, updateUser, deleteUser } from '@/repositories'
 import { User, Schedule, userSchema } from '@/type/common'
 
 interface Props {
@@ -61,6 +61,21 @@ export default function Create(props: Props) {
         { name: '', memo: '', availables: null },
       ]
       await updateUser(props.id, users, data, user_id)
+      await router.push('/' + props.id)
+      return null
+    } catch (error) {
+      console.error('An error occurred:', error)
+      return null
+    }
+  }
+
+  const deleteHandler = async () => {
+    const { query } = router
+    const user_id = Number(query.id)
+    const schedule = props.schedule
+    const users: User[] = schedule.users || [{ name: '', memo: '', availables: null }]
+    try {
+      await deleteUser(props.id, users[user_id])
       await router.push('/' + props.id)
       return null
     } catch (error) {
@@ -148,14 +163,23 @@ export default function Create(props: Props) {
                 <p className='text-red-500'>カレンダーを入力してください</p>
               )}
             </div>
-            <Button
-              type='submit'
-              disabled={!isValid || !ScheduleValid}
-              loading={isSubmitting}
-              className='btn bg-primary'
-            >
-              修正
-            </Button>
+            <div className='flex gap-5'>
+              <Button
+                type='button'
+                className='btn border-secondary-focus bg-secondary-focus text-white hover:border-secondary hover:bg-secondary'
+                onClick={deleteHandler}
+              >
+                削除
+              </Button>
+              <Button
+                type='submit'
+                disabled={!isValid || !ScheduleValid}
+                loading={isSubmitting}
+                className='btn bg-primary text-white'
+              >
+                修正
+              </Button>
+            </div>
           </div>
         </main>
       </form>
