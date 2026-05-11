@@ -77,7 +77,9 @@ const ScheduleInput: React.FC<ScheduleInputProps> = ({
   }
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>, time: number) => {
-    e.currentTarget.releasePointerCapture(e.pointerId)
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    }
     dragMode.current = selectedTimes.includes(time) ? 'deselect' : 'select'
     isDragging.current = true
     dragMode.current === 'select' ? selectTime(time) : deselectTime(time)
@@ -88,12 +90,21 @@ const ScheduleInput: React.FC<ScheduleInputProps> = ({
     dragMode.current === 'select' ? selectTime(time) : deselectTime(time)
   }
 
+  const handleKeyboardClick = (e: React.MouseEvent, time: number) => {
+    if (e.detail !== 0) return
+    selectedTimes.includes(time) ? deselectTime(time) : selectTime(time)
+  }
+
   useEffect(() => {
     const stop = () => {
       isDragging.current = false
     }
     document.addEventListener('pointerup', stop)
-    return () => document.removeEventListener('pointerup', stop)
+    document.addEventListener('pointercancel', stop)
+    return () => {
+      document.removeEventListener('pointerup', stop)
+      document.removeEventListener('pointercancel', stop)
+    }
   }, [])
 
   useEffect(() => {
@@ -130,6 +141,7 @@ const ScheduleInput: React.FC<ScheduleInputProps> = ({
                   style={{ touchAction: 'pan-x' }}
                   onPointerDown={(e) => handlePointerDown(e, time)}
                   onPointerEnter={() => handlePointerEnter(time)}
+                  onClick={(e) => handleKeyboardClick(e, time)}
                 >
                   {timeIndex % 2 === 0 && <p className='w-12 -translate-x-6 border-t' />}
                   {timeIndex % 2 === 0 && dateIndex === 0 && (

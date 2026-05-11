@@ -44,7 +44,9 @@ const Calender: React.FC<CalenderProps> = ({ onChange }) => {
   }
 
   const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>, date: Date) => {
-    e.currentTarget.releasePointerCapture(e.pointerId)
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    }
     const t = date.getTime()
     dragMode.current = selectedDates.includes(t) ? 'deselect' : 'select'
     isDragging.current = true
@@ -54,6 +56,12 @@ const Calender: React.FC<CalenderProps> = ({ onChange }) => {
   const handlePointerEnter = (date: Date) => {
     if (!isDragging.current) return
     dragMode.current === 'select' ? selectDate(date) : deselectDate(date)
+  }
+
+  const handleKeyboardClick = (e: React.MouseEvent, date: Date) => {
+    if (e.detail !== 0) return
+    const t = date.getTime()
+    selectedDates.includes(t) ? deselectDate(date) : selectDate(date)
   }
 
   const handlePreviousMonth = () => {
@@ -73,7 +81,11 @@ const Calender: React.FC<CalenderProps> = ({ onChange }) => {
       isDragging.current = false
     }
     document.addEventListener('pointerup', stop)
-    return () => document.removeEventListener('pointerup', stop)
+    document.addEventListener('pointercancel', stop)
+    return () => {
+      document.removeEventListener('pointerup', stop)
+      document.removeEventListener('pointercancel', stop)
+    }
   }, [])
 
   return (
@@ -117,6 +129,7 @@ const Calender: React.FC<CalenderProps> = ({ onChange }) => {
                       type='button'
                       onPointerDown={(e) => handlePointerDown(e, date)}
                       onPointerEnter={() => handlePointerEnter(date)}
+                      onClick={(e) => handleKeyboardClick(e, date)}
                       style={{ touchAction: 'none' }}
                       className={classNames(
                         'btn btn-circle btn-outline h-10 min-h-fit w-10 min-w-fit select-none md:btn-md',
