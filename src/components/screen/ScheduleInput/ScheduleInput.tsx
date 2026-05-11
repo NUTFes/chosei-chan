@@ -89,7 +89,9 @@ const ScheduleInput: React.FC<ScheduleInputProps> = ({
   }
 
   useEffect(() => {
-    const stop = () => { isDragging.current = false }
+    const stop = () => {
+      isDragging.current = false
+    }
     document.addEventListener('pointerup', stop)
     return () => document.removeEventListener('pointerup', stop)
   }, [])

@@ -69,7 +69,9 @@ const Calender: React.FC<CalenderProps> = ({ onChange }) => {
   }, [selectedDates])
 
   useEffect(() => {
-    const stop = () => { isDragging.current = false }
+    const stop = () => {
+      isDragging.current = false
+    }
     document.addEventListener('pointerup', stop)
     return () => document.removeEventListener('pointerup', stop)
   }, [])
