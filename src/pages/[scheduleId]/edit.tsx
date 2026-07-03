@@ -6,7 +6,7 @@ import { FiChevronLeft } from 'react-icons/fi'
 import { Button, Input } from '@/components/common'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ScheduleInput } from '@/components/screen'
-import { getSchedule, updateUser } from '@/repositories'
+import { getSchedule, updateUser, deleteUser } from '@/repositories'
 import { User, Schedule, userSchema } from '@/type/common'
 
 interface Props {
@@ -69,6 +69,21 @@ export default function Create(props: Props) {
     }
   }
 
+  const deleteHandler = async () => {
+    const { query } = router
+    const user_id = Number(query.id)
+    const schedule = props.schedule
+    const users: User[] = schedule.users || [{ name: '', memo: '', availables: null }]
+    try {
+      await deleteUser(props.id, users[user_id])
+      await router.push('/' + props.id)
+      return null
+    } catch (error) {
+      console.error('An error occurred:', error)
+      return null
+    }
+  }
+
   const backHandler = async () => {
     try {
       await router.push('/' + props.id)
@@ -84,7 +99,7 @@ export default function Create(props: Props) {
       <form className='flex min-h-screen flex-col' onSubmit={handleSubmit(onSubmit)}>
         <main className='grow'>
           <Button
-            className='btn-secondary btn-outline btn-sm m-5'
+            className='btn-neutral btn-sm m-5 text-white'
             type='button'
             onClick={backHandler}
           >
@@ -148,14 +163,23 @@ export default function Create(props: Props) {
                 <p className='text-red-500'>カレンダーを入力してください</p>
               )}
             </div>
-            <Button
-              type='submit'
-              disabled={!isValid || !ScheduleValid}
-              loading={isSubmitting}
-              className='btn bg-primary'
-            >
-              修正
-            </Button>
+            <div className='flex gap-5'>
+              <Button
+                type='button'
+                className='btn border-secondary bg-secondary text-white hover:border-secondary-focus hover:bg-secondary-focus'
+                onClick={deleteHandler}
+              >
+                削除
+              </Button>
+              <Button
+                type='submit'
+                disabled={!isValid || !ScheduleValid}
+                loading={isSubmitting}
+                className='btn bg-primary text-white'
+              >
+                修正
+              </Button>
+            </div>
           </div>
         </main>
       </form>

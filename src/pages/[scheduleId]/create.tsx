@@ -71,7 +71,7 @@ export default function Create(props: Props) {
       <form className='flex min-h-screen flex-col' onSubmit={handleSubmit(onSubmit)}>
         <main className='grow'>
           <Button
-            className='btn-secondary btn-outline btn-sm m-5'
+            className='btn-neutral btn-sm m-5 text-white'
             type='button'
             onClick={backHandler}
           >
