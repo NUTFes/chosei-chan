@@ -126,11 +126,10 @@ const ScheduleDisplay: React.FC<ScheduleDisplayProps> = ({ schedule }) => {
             <div>
               {newDates[index].map((time, dates_index) => {
                 const selectedUsers = schedule.users
-                  ? schedule.users.filter(
-                      (user) =>
-                        user.availables?.some(
-                          (available) => time >= available.from && time < available.to,
-                        ),
+                  ? schedule.users.filter((user) =>
+                      user.availables?.some(
+                        (available) => time >= available.from && time < available.to,
+                      ),
                     )
                   : []
 
