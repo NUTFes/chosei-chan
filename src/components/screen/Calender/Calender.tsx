@@ -12,13 +12,15 @@ import {
   startOfMonth,
   endOfMonth,
 } from 'date-fns'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 import { CalenderProps } from './Calender.types'
 
 const Calender: React.FC<CalenderProps> = ({ onChange }) => {
   const [targetMonth, setTargetMonth] = useState(new Date())
   const [selectedDates, setSelectedDates] = useState<number[]>([])
+  const isDragging = useRef(false)
+  const dragMode = useRef<'select' | 'deselect'>('select')
 
   const getCalenderArray = (date: Date) => {
     const sundays = eachWeekOfInterval({
@@ -31,15 +33,35 @@ const Calender: React.FC<CalenderProps> = ({ onChange }) => {
   }
   const calender = getCalenderArray(targetMonth)
 
-  const handleDateClick = (date: Date) => {
-    const unixTime = date.getTime()
-    setSelectedDates((prevDates) => {
-      if (prevDates.includes(unixTime)) {
-        return prevDates.filter((time) => time !== unixTime).sort()
-      } else {
-        return [...prevDates, unixTime].sort()
-      }
-    })
+  const selectDate = (date: Date) => {
+    const t = date.getTime()
+    setSelectedDates((prev) => (prev.includes(t) ? prev : [...prev, t].sort()))
+  }
+
+  const deselectDate = (date: Date) => {
+    const t = date.getTime()
+    setSelectedDates((prev) => prev.filter((x) => x !== t).sort())
+  }
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>, date: Date) => {
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    }
+    const t = date.getTime()
+    dragMode.current = selectedDates.includes(t) ? 'deselect' : 'select'
+    isDragging.current = true
+    dragMode.current === 'select' ? selectDate(date) : deselectDate(date)
+  }
+
+  const handlePointerEnter = (date: Date) => {
+    if (!isDragging.current) return
+    dragMode.current === 'select' ? selectDate(date) : deselectDate(date)
+  }
+
+  const handleKeyboardClick = (e: React.MouseEvent, date: Date) => {
+    if (e.detail !== 0) return
+    const t = date.getTime()
+    selectedDates.includes(t) ? deselectDate(date) : selectDate(date)
   }
 
   const handlePreviousMonth = () => {
@@ -53,6 +75,18 @@ const Calender: React.FC<CalenderProps> = ({ onChange }) => {
   useEffect(() => {
     onChange(selectedDates)
   }, [selectedDates])
+
+  useEffect(() => {
+    const stop = () => {
+      isDragging.current = false
+    }
+    document.addEventListener('pointerup', stop)
+    document.addEventListener('pointercancel', stop)
+    return () => {
+      document.removeEventListener('pointerup', stop)
+      document.removeEventListener('pointercancel', stop)
+    }
+  }, [])
 
   return (
     <div className='flex-col'>
@@ -93,14 +127,12 @@ const Calender: React.FC<CalenderProps> = ({ onChange }) => {
                   <td key={getDay(date)} className='pt-1 text-center md:px-1'>
                     <button
                       type='button'
-                      draggable
-                      onClick={() => handleDateClick(date)}
-                      onDragEnter={(e) => {
-                        handleDateClick(date)
-                        e.preventDefault()
-                      }}
+                      onPointerDown={(e) => handlePointerDown(e, date)}
+                      onPointerEnter={() => handlePointerEnter(date)}
+                      onClick={(e) => handleKeyboardClick(e, date)}
+                      style={{ touchAction: 'none' }}
                       className={classNames(
-                        'btn btn-circle btn-outline h-10 min-h-fit w-10 min-w-fit md:btn-md',
+                        'btn btn-circle btn-outline h-10 min-h-fit w-10 min-w-fit select-none md:btn-md',
                         isSelected ? 'btn-active' : '',
                       )}
                     >

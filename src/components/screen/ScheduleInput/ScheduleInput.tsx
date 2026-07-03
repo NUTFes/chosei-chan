@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import format from 'date-fns/format'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ScheduleInputProps } from './ScheduleInput.types'
 import { Available } from '@/type/common'
 import { dayDivideQuarterHour } from '@/utils/dayDivideHalfHour'
@@ -25,6 +25,8 @@ const ScheduleInput: React.FC<ScheduleInputProps> = ({
     }, [])
   }, [editUser])
   const [selectedTimes, setSelectedTimes] = useState<number[]>(initialSelectedTimes)
+  const isDragging = useRef(false)
+  const dragMode = useRef<'select' | 'deselect'>('select')
 
   const otherUserSelectedTimes = useMemo(() => {
     if (!schedule.users) return []
@@ -66,13 +68,44 @@ const ScheduleInput: React.FC<ScheduleInputProps> = ({
     }, [])
   }, [selectedTimes])
 
-  const handleSelectedTimes = (selectedTime: number) => {
-    setSelectedTimes((prev) => {
-      const index = prev.findIndex((prevTime) => prevTime === selectedTime)
-      if (index === -1) return [...prev, selectedTime]
-      return prev.filter((_, i) => i !== index)
-    })
+  const selectTime = (time: number) => {
+    setSelectedTimes((prev) => (prev.includes(time) ? prev : [...prev, time]))
   }
+
+  const deselectTime = (time: number) => {
+    setSelectedTimes((prev) => prev.filter((t) => t !== time))
+  }
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>, time: number) => {
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    }
+    dragMode.current = selectedTimes.includes(time) ? 'deselect' : 'select'
+    isDragging.current = true
+    dragMode.current === 'select' ? selectTime(time) : deselectTime(time)
+  }
+
+  const handlePointerEnter = (time: number) => {
+    if (!isDragging.current) return
+    dragMode.current === 'select' ? selectTime(time) : deselectTime(time)
+  }
+
+  const handleKeyboardClick = (e: React.MouseEvent, time: number) => {
+    if (e.detail !== 0) return
+    selectedTimes.includes(time) ? deselectTime(time) : selectTime(time)
+  }
+
+  useEffect(() => {
+    const stop = () => {
+      isDragging.current = false
+    }
+    document.addEventListener('pointerup', stop)
+    document.addEventListener('pointercancel', stop)
+    return () => {
+      document.removeEventListener('pointerup', stop)
+      document.removeEventListener('pointercancel', stop)
+    }
+  }, [])
 
   useEffect(() => {
     if (onChange) onChange(submitAvailableDates)
@@ -101,17 +134,14 @@ const ScheduleInput: React.FC<ScheduleInputProps> = ({
               {dividedDay.map((time, timeIndex) => (
                 <div
                   key={time}
-                  className={classNames('h-6', {
+                  className={classNames('h-6 select-none', {
                     'bg-secondary': selectedTimes.includes(time),
                     'bg-primary': otherUserSelectedTimes.includes(time),
                   })}
-                  draggable
-                  onDragEnter={() => {
-                    handleSelectedTimes(time)
-                  }}
-                  onClick={() => {
-                    handleSelectedTimes(time)
-                  }}
+                  style={{ touchAction: 'pan-x' }}
+                  onPointerDown={(e) => handlePointerDown(e, time)}
+                  onPointerEnter={() => handlePointerEnter(time)}
+                  onClick={(e) => handleKeyboardClick(e, time)}
                 >
                   {timeIndex % 2 === 0 && <p className='w-12 -translate-x-6 border-t' />}
                   {timeIndex % 2 === 0 && dateIndex === 0 && (
